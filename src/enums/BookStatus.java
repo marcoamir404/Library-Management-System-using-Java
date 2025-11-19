@@ -1,6 +1,6 @@
 package enums;
 
-public enum BookState {
+public enum BookStatus {
 	AVAILABLE,
     CHECKED_OUT,
     RESERVED
