@@ -1,8 +1,11 @@
 package dataModel;
 
+import java.util.ArrayList;
 import enums.UserType;
 
-abstract class User {
+public abstract class User {
+	
+	public static ArrayList<User> users = new ArrayList<>();
 	
 	protected String userId;
 	protected String username;
@@ -45,7 +48,7 @@ abstract class User {
 	}
 	
 	public boolean authenticate(String username, String password) {
-		return this.username.equals(password) && this.password.equals(password);
+		return this.username.equals(username) && this.password.equals(password);
 		
 	}
 }

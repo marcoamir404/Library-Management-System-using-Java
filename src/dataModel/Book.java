@@ -1,8 +1,13 @@
 package dataModel;
 
+import java.util.ArrayList;
+
 import enums.BookStatus;
 
 public class Book {
+	
+	public static ArrayList<Book> books = new ArrayList<>();
+	
 	private String bookId;
 	private String title;
 	private String author;
@@ -35,7 +40,7 @@ public class Book {
 	public String getSummary() {return summary;}
 	public void setSummary(String summary) {this.summary = summary;}
 	public BookStatus getStatus() {return status;}
-	public void set(BookStatus status ) {this.status = status;}
+	public void setStatus(BookStatus status ) {this.status = status;}
 	
 	public void updateDetails(String title, String author, String genre, int publicationYear, String summary) {
 		setTitle(title);
