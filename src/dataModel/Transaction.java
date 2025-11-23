@@ -4,7 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Transaction {
-	
+	    private static final long serialVersionUID = 1L;
+
     public static ArrayList<Transaction> transactions = new ArrayList<>();
 
 	private String transactionId;

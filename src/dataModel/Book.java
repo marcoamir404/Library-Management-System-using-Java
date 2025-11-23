@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import enums.BookStatus;
 
 public class Book {
-	
+	    private static final long serialVersionUID = 1L;
+
 	public static ArrayList<Book> books = new ArrayList<>();
 	
 	private String bookId;

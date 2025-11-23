@@ -1,11 +1,11 @@
 package dataModel;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import enums.UserType;
 
-public abstract class User {
-	
-	public static ArrayList<User> users = new ArrayList<>();
+public abstract class User implements Serializable {
+    private static final long serialVersionUID = 1L;
+    public static ArrayList<User> users = new ArrayList<>();
 	
 	protected String userId;
 	protected String username;

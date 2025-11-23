@@ -4,7 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Reservation {
-	
+	    private static final long serialVersionUID = 1L;
+
 	public static ArrayList<Reservation> reservations = new ArrayList<>();
 	
 	private String reservationId;

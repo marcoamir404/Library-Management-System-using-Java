@@ -5,6 +5,8 @@ import java.util.List;
 import enums.UserType;
 
 public class Admin extends User {
+        private static final long serialVersionUID = 1L;
+
 	public Admin() {
 		super();
 		setUserType(UserType.ADMIN);

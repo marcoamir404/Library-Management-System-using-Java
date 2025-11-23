@@ -5,7 +5,8 @@ import java.util.List;
 import enums.UserType;
 
 public class Patron extends User {
-	
+	    private static final long serialVersionUID = 1L;
+
 	public List<String> checkoutHistory = new ArrayList<>();
 	public List<String> currentLoans = new ArrayList<>();
 	

@@ -2,7 +2,8 @@ package dataModel;
 import enums.UserType;
 
 public class Librarian extends User{
-	
+	    private static final long serialVersionUID = 1L;
+
 	public Librarian() {super();}
 	
 	public Librarian(String userId, String username, String password, String name, String email, String phone){
