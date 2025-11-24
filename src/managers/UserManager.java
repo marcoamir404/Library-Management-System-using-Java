@@ -50,7 +50,7 @@ public class UserManager {
     // Remember to update with authenticateManager
     public User login(String username, String password) {
         for (User u : User.users) {
-            if (u.getUsername().equals(username) && u.getPassword().equals(password)) {
+            if (u.authenticate(username, password)) {
                 return u;
             }
         }

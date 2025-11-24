@@ -27,4 +27,6 @@ public class Patron extends User {
 	public void updateUsername(String username) {super.setUsername(username);}
 	public void updatePassword(String password) {super.setPassword(password);}
 	public void updateName(String name) {super.setName(name);}
+	public void updatePhone(String phone) {super.setName(phone);}
+	public void updateEmail(String email) {super.setName(email);}
 }

@@ -46,6 +46,11 @@ public class Admin extends User {
 		}
 		return result;
 	}
+	
+	public void updateCredentials(String newUsername, String newPassword) {
+		setUsername(newUsername);
+		setPassword(newPassword);
+	}
 
 
 	public void addBook(Book book) {  }
