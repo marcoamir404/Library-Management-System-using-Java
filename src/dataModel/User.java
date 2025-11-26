@@ -7,13 +7,14 @@ public abstract class User {
 	
 	public static ArrayList<User> users = new ArrayList<>();
 	
+	protected UserType userType;
 	protected String userId;
 	protected String username;
 	protected String password;
 	protected String name;
 	protected String email;
 	protected String phone;
-	protected UserType userType;
+	
 	
 	public User() {}
 	

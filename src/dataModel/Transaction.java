@@ -3,6 +3,7 @@ package dataModel;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+
 public class Transaction {
 	
     public static ArrayList<Transaction> transactions = new ArrayList<>();
@@ -12,7 +13,7 @@ public class Transaction {
 	private String bookId;
 	private LocalDate checkoutDate;
 	private LocalDate dueDate;
-	private LocalDate returnDate;
+	private LocalDate returnDate = null;
 	
 	public Transaction() {super();}
 	

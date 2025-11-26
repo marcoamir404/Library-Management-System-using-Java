@@ -1,49 +1,43 @@
 package dataModel;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import enums.BookStatus;
 import enums.UserType;
 import managers.UserManager;
+import managers.BookManager;
 
 public class Admin extends User {
 	
-	private UserManager userManager = new UserManager();
+	private UserManager userManager;
+	private BookManager bookManager;
 	
 	public Admin() {
 		super();
 		setUserType(UserType.ADMIN);
+		userManager = new UserManager();
+		bookManager = new BookManager();
 	}
 	
 	public Admin(String userId, String username, String password, String name, String email, String phone) {
 		super(userId, username, password, name, email, phone, UserType.ADMIN);
+		userManager = new UserManager();
+		bookManager = new BookManager();
 	}
 		
 	public void createLibrarian(Librarian librarian) { userManager.addUser(librarian);}
 	public void deleteLibrarian(String librarianId) { userManager.deleteUser(librarianId);}
 	public void updateLibrarian(Librarian librarian) { userManager.updateUser(librarian);}
 	public List<Librarian> searchLibrarian(String query) {
-		List<Librarian> result = new ArrayList<>();
-		List<User> matchs = userManager.searchUser(query);
-		for(User u : matchs) {
-			if (u instanceof Librarian){
-				result.add((Librarian)u);
-			}
-		}
+		List<Librarian> result = userManager.searchLibrarian(query);
 		return result;
 	}
-	
 	
 	public void createPatron(Patron patron) {userManager.addUser(patron); }
 	public void deletePatron(String patronId) { userManager.deleteUser(patronId);}
 	public void updatePatron(Patron patron) { userManager.updateUser(patron);}
 	public List<Patron> searchPatron(String query) { 
-		List<Patron> result = new ArrayList<>();
-		List<User> matchs = userManager.searchUser(query);
-		for(User u : matchs) {
-			if (u instanceof Patron) {
-				result.add((Patron) u);
-			}
-		}
+		List<Patron> result = userManager.searchPatron(query);
 		return result;
 	}
 	
@@ -53,10 +47,36 @@ public class Admin extends User {
 	}
 
 
-	public void addBook(Book book) {  }
-	public void updateBook(Book book) {  }
-	public void removeBook(String bookId) {  }
-	public void categorizeBook(String bookId, String category) {  }
-	public void trackBookStatus() { }
+	public void addBook(Book book) { bookManager.addBook(book); }
+	public void updateBook(Book book) { bookManager.updateBook(book); }
+	public void removeBook(String bookId) { bookManager.removeBook(bookId); }
+	public BookStatus trackBookStatus(String bookId) {return bookManager.trackBookStatus(bookId);}
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

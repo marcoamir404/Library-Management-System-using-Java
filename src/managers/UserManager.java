@@ -4,52 +4,122 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dataModel.User;
+import dataModel.Librarian;
+import dataModel.Patron;
+import enums.UserType;
+import filemanager.UserFileHandler;
 
 public class UserManager {
+	
+	private UserFileHandler uf = new UserFileHandler();
+	
+	private List<User> users = User.users;
 	
     public UserManager() {}
 
     public void addUser(User user) {
     	if(user == null) { return;}
-        User.users.add(user);
+    	if(!usernameExists(user.getUsername())) {
+    		users.add(user);
+    		uf.saveUsers(users);
+    	}else {
+			System.out.println("Username is already exists!\n");
+			return;
+		}
     }
 
-    public void deleteUser(String userId) {
-    	if(userId == null) { return;}
-        User.users.removeIf(u -> u.getUserId().equals(userId));
+    public boolean deleteUser(String userId) {
+    	if(userId == null) { return false;}
+    	boolean removed = users.removeIf(u -> u.getUserId().equals(userId));
+        if(removed) {uf.saveUsers(users);}
+        return removed;
     }
 
-    public void updateUser(User updatedUser) {
-    	if(updatedUser == null) {return;}
+    public boolean updateUser(User updatedUser) {
+    	if(updatedUser == null) {return false;}
     
-        for (int i = 0; i < User.users.size(); i++) {
-            if (User.users.get(i).getUserId().equals(updatedUser.getUserId())) {
-                User.users.set(i, updatedUser);
-                return;
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getUserId().equals(updatedUser.getUserId())) {
+                users.set(i, updatedUser);
+                uf.saveUsers(users);
+                return true;
             }
         }
+        return false;
     }
-
-    public List<User> searchUser(String query) {
-        List<User> result = new ArrayList<>();
+    
+    public Librarian searchLibrarianById(String libId) {
+        Librarian result = null;
         
-        if (query == null) {return null;}
-        
-        query = query.toLowerCase();
-        for (User u : User.users) {
-            if (u.getUserId().toLowerCase().contains(query)||
-            	u.getName().toLowerCase().contains(query) ||
-                u.getUsername().toLowerCase().contains(query) ||
-                u.getEmail().toLowerCase().contains(query)) {
-                result.add(u);
+        if (libId == null) {return null;}
+   
+        for (User u : users) {
+            if (u.getUserId().equalsIgnoreCase(libId)&& u.getUserType() == UserType.LIBRARIAN) {
+                result = (Librarian) u;
             }
         }
         return result;
     }
     
-    // Remember to update with authenticateManager
+    public Patron searchPatronById(String patId) {
+        Patron result = null;
+        
+        if (patId == null) {return null;}
+        
+        for (User u : users) {
+            if (u.getUserId().equalsIgnoreCase(patId) && u.getUserType() == UserType.PATRON) {
+                result = (Patron) u;
+            }
+        }
+        return result;
+    }
+    
+    public List<Librarian> searchLibrarian(String query) {
+        List<Librarian> result = new ArrayList<>();
+        
+        if (query == null) {return null;}
+        
+        query = query.toLowerCase();
+        for (User u : users) {
+            if ((u.getUserId().toLowerCase().contains(query)||
+            	u.getName().toLowerCase().contains(query) ||
+                u.getUsername().toLowerCase().contains(query) ||
+                u.getEmail().toLowerCase().contains(query))&& u.getUserType() == UserType.LIBRARIAN) {
+                result.add((Librarian) u);
+            }
+        }
+        return result;
+    }
+    
+    public List<Patron> searchPatron(String query) {
+        List<Patron> result = new ArrayList<>();
+        
+        if (query == null) {return null;}
+        
+        query = query.toLowerCase();
+        for (User u : users) {
+            if ((u.getUserId().toLowerCase().contains(query)||
+            	u.getName().toLowerCase().contains(query) ||
+                u.getUsername().toLowerCase().contains(query) ||
+                u.getEmail().toLowerCase().contains(query)) && u.getUserType() == UserType.PATRON) {
+                result.add((Patron) u);
+            }
+        }
+        return result;
+    }
+    
+    public boolean usernameExists(String username) {
+    	for(User u : users) {
+    		if(u.getUsername().equals(username)) {
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+
+    
     public User login(String username, String password) {
-        for (User u : User.users) {
+        for (User u : users) {
             if (u.authenticate(username, password)) {
                 return u;
             }

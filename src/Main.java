@@ -1,112 +1,118 @@
+
 import dataModel.*;
 import enums.*;
 import managers.*;
 
 public class Main {
-	public static void main(String[] args) {
-		UserManager userManager = new UserManager();
 
-        System.out.println("===== TEST START =====");
+    public static void main(String[] args) {
 
-        // ------------------------------------------------------
-        // Create an admin
-        // ------------------------------------------------------
-        Admin admin = new Admin(
-                "A001", "admin", "1234", "System Admin",
-                "admin@lib.com", "0100000000"
-        );
+        System.out.println("==== LIBRARY MANAGEMENT SYSTEM TEST ====\n");
 
+        // Managers
+        UserManager userManager = new UserManager();
+        BookManager bookManager = new BookManager();
+        TransactionManager transactionManager = new TransactionManager();
+        ReservationManager reservationManager = new ReservationManager();
 
-        System.out.println("\nAdmin created: " + admin.getName());
+        // ----------------------------
+        // 1. Create Admin, Librarian, Patron
+        // ----------------------------
 
-        // ------------------------------------------------------
-        // Add Librarian
-        // ------------------------------------------------------
-        Librarian librarian1 = new Librarian(
-                "L001", "lib1", "pass1", "Ahmed",
-                "ahmed@library.com", "01011111111"
-        );
+        Admin admin = new Admin("A1", "admin1", "1234", "Admin User", "admin@mail.com", "01000");
+        Librarian librarian = new Librarian("L1", "lib1", "abcd", "Librarian User", "lib@mail.com", "01111");
+        Patron p1 = new Patron("P1", "p1", "1111", "Ahmed Ali", "ahmed@mail.com", "01222");
+        Patron p2 = new Patron("P2", "p2", "2222", "Sara Mohamed", "sara@mail.com", "01333");
 
-        admin.createLibrarian(librarian1);
+        userManager.addUser(admin);
+        userManager.addUser(librarian);
+        userManager.addUser(p1);
+        userManager.addUser(p2);
 
-        System.out.println("Added Librarian: " + librarian1.getName());
-
-        // ------------------------------------------------------
-        // Add Patron
-        // ------------------------------------------------------
-        Patron patron1 = new Patron(
-                "P001", "pat1", "pass2", "Sara",
-                "sara@mail.com", "01222222222"
-        );
-
-        admin.createPatron(patron1);
-
-        System.out.println("Added Patron: " + patron1.getName());
+        System.out.println("Users Added.");
+        System.out.println("----------------------------------");
 
 
-        // ------------------------------------------------------
-        // Test Search Librarian
-        // ------------------------------------------------------
-        System.out.println("\nSearching Librarian: 'Ahmed'");
+        // ----------------------------
+        // 2. Admin adds books
+        // ----------------------------
+        Book b1 = new Book("B1", "Clean Code", "Robert Martin", "Programming", 2008, "A book about writing clean code.");
+        Book b2 = new Book("B2", "Harry Potter", "J.K. Rowling", "Fantasy", 1997, "Magic world adventure.");
+        Book b3 = new Book("B3", "Data Structures", "Weiss", "Education", 2000, "DSA fundamentals.");
 
-        admin.searchLibrarian("Ahmed").forEach(lib -> {
-            System.out.println("Found Librarian → " + lib.getName());
-        });
+        admin.addBook(b1);
+        admin.addBook(b2);
+        admin.addBook(b3);
 
-
-        // ------------------------------------------------------
-        // Test Search Patron
-        // ------------------------------------------------------
-        System.out.println("\nSearching Patron: 'Sara'");
-
-        admin.searchPatron("Sara").forEach(pat -> {
-            System.out.println("Found Patron → " + pat.getName());
-        });
+        System.out.println("Books Added by Admin.");
+        System.out.println("----------------------------------");
 
 
-        // ------------------------------------------------------
-        // Test Login
-        // ------------------------------------------------------
-        System.out.println("\nTesting Login...");
+        // ----------------------------
+        // 3. Librarian checks out a book for a patron
+        // ----------------------------
+        System.out.println("Librarian checkout B1 for P1:");
+        boolean checkout1 = librarian.checkoutBook("P1", "B1");
+        System.out.println("Checkout success? " + checkout1);
+        System.out.println("B1 Status: " + b1.getStatus());
+        System.out.println("----------------------------------");
 
-        User loginUser = userManager.login("lib1", "pass1");
 
-        if (loginUser != null) {
-            System.out.println("Login Success → " + loginUser.getName() + " (" + loginUser.getUserType() + ")");
-        } else {
-            System.out.println("Login Failed");
+        // ----------------------------
+        // 4. Patron P2 reserves the same book
+        // ----------------------------
+        System.out.println("P2 reserves B1:");
+        boolean reserve = librarian.reserveBook("P2", "B1");
+        System.out.println("Reservation success? " + reserve);
+        System.out.println("----------------------------------");
+
+
+        // ----------------------------
+        // 5. Librarian returns the book → triggers auto notification
+        // ----------------------------
+        System.out.println("Librarian returns B1 for P1:");
+        boolean returnSuccess = librarian.returnBook("P1", "B1");
+        System.out.println("Return success? " + returnSuccess);
+        System.out.println("B1 Status: " + b1.getStatus());
+        System.out.println("----------------------------------");
+
+
+        // ----------------------------
+        // 6. Librarian manually notifies a patron
+        // ----------------------------
+        System.out.println("Librarian manually notifies P2:");
+        librarian.notifyPatron("P2", "Your book is ready for pickup.");
+        System.out.println("----------------------------------");
+
+
+        // ----------------------------
+        // 7. Patron searches for books using filters
+        // ----------------------------
+        System.out.println("Patron P1 searches for programming books:");
+        Filters f = new Filters();
+        f.genre = "Programming";
+        var searchResult = p1.searchBooks("", f);
+
+        for (Book b : searchResult) {
+            System.out.println("Found: " + b.getTitle());
+        }
+        System.out.println("----------------------------------");
+
+
+        // ----------------------------
+        // 8. Patron views checkout history + current loans
+        // ----------------------------
+        System.out.println("P1 Checkout History:");
+        for (Transaction t : p1.viewCheckoutHistory()) {
+            System.out.println("Book: " + t.getBookId() + ", Checkout: " + t.getCheckoutDate());
         }
 
-
-        // ------------------------------------------------------
-        // Test Update User
-        // ------------------------------------------------------
-        System.out.println("\nUpdating Patron phone number...");
-
-        patron1.setPhone("01555555555");
-        admin.updatePatron(patron1);
-
-        System.out.println("Updated Patron Phone → " + patron1.getPhone());
-
-
-        // ------------------------------------------------------
-        // Test Delete User
-        // ------------------------------------------------------
-        System.out.println("\nDeleting Librarian L001");
-
-        admin.deleteLibrarian("L001");
-
-        if (admin.searchLibrarian("L001").isEmpty()) {
-            System.out.println("Librarian deleted successfully.");
-        } else {
-            System.out.println("Librarian was NOT deleted.");
+        System.out.println("\nP1 Current Loans:");
+        for (Transaction t : p1.ViewCurrentLoans()) {
+            System.out.println("Loan Book: " + t.getBookId());
         }
+        System.out.println("----------------------------------");
 
-        // ------------------------------------------------------
-
-        System.out.println("\n===== TEST COMPLETE =====");
-
-	    
-	}
-
+        System.out.println("==== TEST COMPLETED ====");
+    }
 }
