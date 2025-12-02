@@ -15,15 +15,16 @@ public class Admin extends User {
 	public Admin() {
 		super();
 		setUserType(UserType.ADMIN);
-		userManager = new UserManager();
-		bookManager = new BookManager();
+		
 	}
 	
 	public Admin(String userId, String username, String password, String name, String email, String phone) {
 		super(userId, username, password, name, email, phone, UserType.ADMIN);
-		userManager = new UserManager();
-		bookManager = new BookManager();
+
 	}
+	
+	 public void setUserManager(UserManager um) { this.userManager = um; }
+	 public void setBookManager(BookManager bm) { this.bookManager = bm; }
 		
 	public void createLibrarian(Librarian librarian) { userManager.addUser(librarian);}
 	public void deleteLibrarian(String librarianId) { userManager.deleteUser(librarianId);}

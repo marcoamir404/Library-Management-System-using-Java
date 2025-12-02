@@ -19,7 +19,11 @@ public class ReservationManager {
 	BookManager bookManager = new BookManager();
 	UserManager userManager = new UserManager();
 	
-	public ReservationManager() {}
+	public ReservationManager() {
+		if (reservations.isEmpty()) {
+			reservations.addAll(rf.loadReservations());
+    }
+	}
 	
 	public boolean reserveBook(String patronId, String bookId) {
 		Book targetBook = bookManager.searchBookById(bookId);

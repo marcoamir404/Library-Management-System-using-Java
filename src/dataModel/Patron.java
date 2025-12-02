@@ -20,19 +20,17 @@ public class Patron extends User {
 	public Patron() {
 		super();
 		setUserType(UserType.PATRON);
-		bookManager = new BookManager();
-		transactionManager = new TransactionManager();
-		reservationManager = new ReservationManager();
-		userManager = new UserManager();
 	}
 	
 	public Patron(String userId, String username, String password, String name, String email, String phone){
 		super(userId, username, password, name, email, phone, UserType.PATRON);
-		bookManager = new BookManager();
-		transactionManager = new TransactionManager();
-		reservationManager = new ReservationManager();
-		userManager = new UserManager();
 	}
+	
+	public void setUserMan(UserManager um) {this.userManager = um;}
+	public void setBookMan(BookManager bm) {this.bookManager = bm;}
+	public void setTransactionMan(TransactionManager tm) {this.transactionManager = tm;}
+	public void setReservationMan(ReservationManager rm) {this.reservationManager = rm;}
+	
 	
 	public List<String> getCheckoutHistory() { return checkoutHistory; }
 	public List<String> getCurrentLoans() { return currentLoans; }

@@ -3,10 +3,15 @@ import dataModel.*;
 import enums.*;
 import managers.*;
 
+import ui.LoginUI; // لاحظ هنا استدعينا شاشة الدخول
+import javax.swing.SwingUtilities;
+
+import ui.BookDetailsUI;
+import ui.BookSearchUI;
 public class Main {
 
     public static void main(String[] args) {
-
+/*
         System.out.println("==== LIBRARY MANAGEMENT SYSTEM TEST ====\n");
 
         // Managers
@@ -14,11 +19,11 @@ public class Main {
         BookManager bookManager = new BookManager();
         TransactionManager transactionManager = new TransactionManager();
         ReservationManager reservationManager = new ReservationManager();
-
+        
         // ----------------------------
         // 1. Create Admin, Librarian, Patron
         // ----------------------------
-
+        
         Admin admin = new Admin("A1", "admin1", "1234", "Admin User", "admin@mail.com", "01000");
         Librarian librarian = new Librarian("L1", "lib1", "abcd", "Librarian User", "lib@mail.com", "01111");
         Patron p1 = new Patron("P1", "p1", "1111", "Ahmed Ali", "ahmed@mail.com", "01222");
@@ -112,6 +117,20 @@ public class Main {
             System.out.println("Loan Book: " + t.getBookId());
         }
         System.out.println("----------------------------------");
+     // ============================================================
+        // الجزء الجديد: تشغيل الواجهة الرسومية (GUI)
+        // ============================================================
+        System.out.println("\n>> Launching Login Application...");
+        System.out.println(">> Hint: Try logging in with Username: p1 / Password: 1111");
+*/
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                // فتح شاشة تسجيل الدخول بدلاً من شاشة البحث مباشرة
+                new LoginUI().setVisible(true);
+                new BookSearchUI().setVisible(true);
+            }
+            });
 
         System.out.println("==== TEST COMPLETED ====");
     }

@@ -5,7 +5,7 @@ import dataModel.Transaction;
 
 public class TransactionFileHandler {
 
-    private static final String FILE_PATH = "database/transactions.txt";
+    private static final String FILE_PATH = "dataFiles/transactions.txt";
 
     public void saveTransactions(List<Transaction> list) {
         StringBuilder sb = new StringBuilder();

@@ -1,5 +1,4 @@
 package filemanager;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,10 +8,17 @@ import dataModel.Librarian;
 import dataModel.Patron;
 import dataModel.User;
 import enums.UserType;
+import managers.BookManager;
+import managers.ReservationManager;
+import managers.TransactionManager;
+import managers.UserManager;
 
 public class UserFileHandler {
-
-    private static final String FILE_PATH = "users.txt";
+	private UserManager userManager;
+	private BookManager bookManager;
+	private TransactionManager transactionManager;
+	private ReservationManager reservationManager;
+    private static final String FILE_PATH = "dataFiles/users.txt";
 
     public void saveUsers(List<User> users) {
         try {
@@ -20,7 +26,7 @@ public class UserFileHandler {
 
             for (User u : users) {
                 pw.println(
-                        u.getUserType() + "," +          // IMPORTANT
+                        u.getUserType() + "," + 
                         u.getUserId() + "," +
                         u.getUsername() + "," +
                         u.getPassword() + "," +
@@ -61,26 +67,33 @@ public class UserFileHandler {
                 String email = parts[5];
                 String phone = parts[6];
 
-                User user = null;
-
                 
                 switch (type) {
                     case ADMIN:
-                        user = new Admin(userId, username, password, name, email, phone);
+                        Admin a = new Admin(userId, username, password, name, email, phone);
+                        a.setUserManager(userManager);
+                        a.setBookManager(bookManager);
+                        if(a != null) users.add(a);
                         break;
 
                     case LIBRARIAN:
-                        user = new Librarian(userId, username, password, name, email, phone);
+                        Librarian b = new Librarian(userId, username, password, name, email, phone);
+                        b.setReservationMan(reservationManager);
+                        b.setTransactionMan(transactionManager);
+                        b.setUserMan(userManager);
+                        if(b != null) users.add(b);
                         break;
 
                     case PATRON:
-                        user = new Patron(userId, username, password, name, email, phone);
+                        Patron p = new Patron(userId, username, password, name, email, phone);
+                        p.setBookMan(bookManager);
+                        p.setReservationMan(reservationManager);
+                        p.setTransactionMan(transactionManager);
+                        p.setUserMan(userManager);
+                        if(p != null) users.add(p);
                         break;
                 }
 
-                if (user != null) {
-                    users.add(user);
-                }
             }
 
             br.close();

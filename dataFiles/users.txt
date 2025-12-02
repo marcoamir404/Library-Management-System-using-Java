@@ -1,0 +1,2 @@
+ADMIN,A1,admin,admin,AdminUser,Admin@library.com,1111
+PATRON,P16919,marco,ma01,marco amir,marco@amir,01065

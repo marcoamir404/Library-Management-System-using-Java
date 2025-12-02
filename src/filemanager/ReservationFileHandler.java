@@ -5,7 +5,7 @@ import dataModel.Reservation;
 
 public class ReservationFileHandler {
 
-    private static final String FILE_PATH = "database/reservations.txt";
+    private static final String FILE_PATH = "dataFiles/reservations.txt";
 
     public void saveReservations(List<Reservation> list) {
         StringBuilder sb = new StringBuilder();

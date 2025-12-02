@@ -13,18 +13,14 @@ public class Librarian extends User{
 	public Librarian() {
 		super();
 		setUserType(UserType.LIBRARIAN);
-		transactionManager = new TransactionManager();
-		reservationManager = new ReservationManager();
-		userManager = new UserManager();
 	}
 	
 	public Librarian(String userId, String username, String password, String name, String email, String phone){
 		super(userId, username, password, name, email, phone, UserType.LIBRARIAN);
-		transactionManager = new TransactionManager();
-		reservationManager = new ReservationManager();
-		userManager = new UserManager();
 	}
-	
+	public void setUserMan(UserManager um) {this.userManager = um;}
+	public void setTransactionMan(TransactionManager tm) {this.transactionManager = tm;}
+	public void setReservationMan(ReservationManager rm) {this.reservationManager = rm;}
 	
 	public boolean checkoutBook(String patronId, String bookId) {
 		return transactionManager.checkoutBook(patronId, bookId);

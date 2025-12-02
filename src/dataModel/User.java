@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import enums.UserType;
 
 public abstract class User {
-	
+
 	public static ArrayList<User> users = new ArrayList<>();
 	
 	protected UserType userType;

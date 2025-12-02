@@ -20,7 +20,11 @@ public class TransactionManager {
 	private BookManager bookManager = new BookManager();
 	
 	
-	public TransactionManager () {}
+	public TransactionManager () {
+		if (transactions.isEmpty()) {
+			transactions.addAll(tf.loadTransactions());
+    }
+	}
 	
 	public boolean checkoutBook(String patronId, String bookId) { 
 		Book targetBook = bookManager.searchBookById(bookId);

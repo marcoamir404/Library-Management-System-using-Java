@@ -15,7 +15,11 @@ public class UserManager {
 	
 	private List<User> users = User.users;
 	
-    public UserManager() {}
+    public UserManager() {
+    	if (users.isEmpty()) {
+            users.addAll(uf.loadUsers());
+        }
+    }
 
     public void addUser(User user) {
     	if(user == null) { return;}

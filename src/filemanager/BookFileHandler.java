@@ -6,7 +6,7 @@ import enums.BookStatus;
 
 public class BookFileHandler {
 
-    private static final String FILE_PATH = "database/books.txt";
+    private static final String FILE_PATH = "dataFiles/books.txt";
 
     public void saveBooks(List<Book> books) {
 

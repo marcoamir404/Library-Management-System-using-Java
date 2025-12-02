@@ -12,7 +12,11 @@ public class BookManager {
 	private BookFileHandler bf = new BookFileHandler();
 	private List<Book> books = Book.books;
 	
-	public BookManager() {}
+	public BookManager() {
+		if (books.isEmpty()) {
+				books.addAll(bf.loadBooks());
+        }
+	}
 	
 	public boolean addBook(Book book) { 
 		if(book == null || book.getBookId() == null) 
