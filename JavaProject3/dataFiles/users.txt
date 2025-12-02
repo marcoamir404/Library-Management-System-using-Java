@@ -1,0 +1,2 @@
+LIBRARIAN,L1,lib1,abcd,Librarian User,lib@mail.com,01111
+PATRON,P1,p1,1111,Ahmed Ali,ahmed@mail.com,01222

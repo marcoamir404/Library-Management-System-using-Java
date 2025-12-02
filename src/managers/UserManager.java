@@ -13,7 +13,7 @@ public class UserManager {
 	
 	private UserFileHandler uf = new UserFileHandler();
 	
-	private List<User> users = User.users;
+	public List<User> users = User.users;
 	
     public UserManager() {
     	if (users.isEmpty()) {
@@ -130,5 +130,9 @@ public class UserManager {
         }
         return null; 
     }
-    
+    public List<User> getAllUsers() {
+    UserFileHandler ufh = new UserFileHandler();
+    return ufh.loadUsers();
+}
+
 }

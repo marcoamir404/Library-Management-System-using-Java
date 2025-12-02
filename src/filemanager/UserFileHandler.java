@@ -22,6 +22,10 @@ public class UserFileHandler {
 
     public void saveUsers(List<User> users) {
         try {
+              File folder = new File("dataFiles");
+        if (!folder.exists()) {
+            folder.mkdirs(); // إنشاء المجلد إذا مش موجود
+        }
             PrintWriter pw = new PrintWriter(new FileWriter(FILE_PATH));
 
             for (User u : users) {
