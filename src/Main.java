@@ -8,13 +8,9 @@ import javax.swing.SwingUtilities;
 
 import ui.BookDetailsUI;
 import ui.BookSearchUI;
-import ui.UserListUI;
-import ui.UserSearchUI;
 public class Main {
 
     public static void main(String[] args) {
-                UserManager userManager = new UserManager();
-
 /*
         System.out.println("==== LIBRARY MANAGEMENT SYSTEM TEST ====\n");
 
@@ -137,8 +133,5 @@ public class Main {
             });
 
         System.out.println("==== TEST COMPLETED ====");
-         javax.swing.SwingUtilities.invokeLater(() -> 
-            new UserListUI(userManager).setVisible(true)
-        );
     }
 }
