@@ -29,16 +29,16 @@ public class Admin extends User {
 	public void createLibrarian(Librarian librarian) { userManager.addUser(librarian);}
 	public void deleteLibrarian(String librarianId) { userManager.deleteUser(librarianId);}
 	public void updateLibrarian(Librarian librarian) { userManager.updateUser(librarian);}
-	public List<Librarian> searchLibrarian(String query) {
-		List<Librarian> result = userManager.searchLibrarian(query);
+	public List<User> searchLibrarian(String query) {
+		List<User> result = userManager.searchLibrarian(query);
 		return result;
 	}
 	
 	public void createPatron(Patron patron) {userManager.addUser(patron); }
 	public void deletePatron(String patronId) { userManager.deleteUser(patronId);}
 	public void updatePatron(Patron patron) { userManager.updateUser(patron);}
-	public List<Patron> searchPatron(String query) { 
-		List<Patron> result = userManager.searchPatron(query);
+	public List<User> searchPatron(String query) { 
+		List<User> result = userManager.searchPatron(query);
 		return result;
 	}
 	

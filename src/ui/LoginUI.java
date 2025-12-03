@@ -18,9 +18,7 @@ public class LoginUI extends JFrame {
 	private JTextField userField;
 	private JPasswordField passwordField;
 
-	/**
-	 * Create the frame.
-	 */
+	
 	public LoginUI() {
 		userManager = new UserManager();
 		

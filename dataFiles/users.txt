@@ -1,2 +1,10 @@
 ADMIN,A1,admin,admin,AdminUser,Admin@library.com,1111
-PATRON,P16919,marco,ma01,marco amir,marco@amir,01065
+PATRON,P10001,john_doe,pass1234,John Doe,john.doe@gmail.com,5551234567
+PATRON,P10002,sara_hassan,hello2024,Sara Hassan,sara.hassan@yahoo.com,5559876543
+PATRON,P10003,mohamed_ali,qwerty88,Mohamed Ali,m.ali@outlook.com,5512223344
+PATRON,P10004,linda_smith,securePass,Linda Smith,linda.smith@gmail.com,5536789123
+PATRON,P10005,ahmed_fathy,a1234567,Ahmed Fathy,ahmed.fathy@hotmail.com,5504443322
+LIBRARIAN,L20001,lib_jason,jason2024,Jason Roberts,j.roberts@library.com,5557771122
+LIBRARIAN,L20002,lib_mona,monapass55,Mona Adel,mona.adel@library.com,5556612345
+LIBRARIAN,L20003,lib_samir,samirAdmin,Samir Naguib,samir.naguib@library.com,5558899001
+LIBRARIAN,L20004,lib_emily,emilySecure8,Emily White,emily.white@library.com,5559087766

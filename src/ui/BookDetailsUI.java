@@ -14,7 +14,7 @@ public class BookDetailsUI extends JDialog {
         setLocationRelativeTo(parent);
         setLayout(new BorderLayout());
 
-        // عنوان علوي
+      
         JPanel header = new JPanel();
         header.setBackground(PRIMARY_COLOR);
         JLabel title = new JLabel(book.getTitle());
@@ -23,7 +23,7 @@ public class BookDetailsUI extends JDialog {
         header.add(title);
         add(header, BorderLayout.NORTH);
 
-        // المحتوى
+     
         JPanel content = new JPanel(new GridBagLayout());
         content.setBackground(Color.WHITE);
         content.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -37,7 +37,7 @@ public class BookDetailsUI extends JDialog {
         addRow(content, gbc, 2, "Genre:", book.getGenre());
         addRow(content, gbc, 3, "Year:", String.valueOf(book.getPublicationYear()));
         
-        // تمييز الحالة بلون مختلف
+       
         JLabel statusLabel = new JLabel(book.getStatus().toString());
         statusLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
         statusLabel.setForeground(book.getStatus().toString().equals("AVAILABLE") ? new Color(39, 174, 96) : Color.RED);
@@ -47,7 +47,7 @@ public class BookDetailsUI extends JDialog {
         gbc.gridx = 1;
         content.add(statusLabel, gbc);
 
-        // الملخص
+       
         gbc.gridx = 0; gbc.gridy = 5; gbc.gridwidth = 2;
         content.add(createBoldLabel("Summary:"), gbc);
         
@@ -61,14 +61,14 @@ public class BookDetailsUI extends JDialog {
 
         gbc.gridy = 6;
         gbc.fill = GridBagConstraints.BOTH;
-        gbc.weightx = 1.0; gbc.weighty = 1.0; // تمدد
+        gbc.weightx = 1.0; gbc.weighty = 1.0; 
         content.add(new JScrollPane(summaryArea), gbc);
 
         add(content, BorderLayout.CENTER);
 
-        // زر إغلاق
+       
         JButton closeBtn = new JButton("Close");
-        closeBtn.setBackground(new Color(231, 76, 60)); // أحمر
+        closeBtn.setBackground(new Color(231, 76, 60)); 
         closeBtn.setForeground(Color.WHITE);
         closeBtn.setFocusPainted(false);
         closeBtn.addActionListener(e -> dispose());

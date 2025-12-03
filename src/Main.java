@@ -8,6 +8,7 @@ import javax.swing.SwingUtilities;
 
 import ui.BookDetailsUI;
 import ui.BookSearchUI;
+import ui.Try;
 public class Main {
 
     public static void main(String[] args) {
@@ -128,7 +129,8 @@ public class Main {
             public void run() {
                 // فتح شاشة تسجيل الدخول بدلاً من شاشة البحث مباشرة
                 new LoginUI().setVisible(true);
-                new BookSearchUI().setVisible(true);
+                //new BookSearchUI().setVisible(true);
+            	//new Try().setVisible(true);
             }
             });
 

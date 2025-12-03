@@ -20,6 +20,7 @@ public class UserManager {
             users.addAll(uf.loadUsers());
         }
     }
+    public List<User> getUsers() { return users;}
 
     public void addUser(User user) {
     	if(user == null) { return;}
@@ -78,8 +79,8 @@ public class UserManager {
         return result;
     }
     
-    public List<Librarian> searchLibrarian(String query) {
-        List<Librarian> result = new ArrayList<>();
+    public List<User> searchLibrarian(String query) {
+        List<User> result = new ArrayList<>();
         
         if (query == null) {return null;}
         
@@ -89,14 +90,17 @@ public class UserManager {
             	u.getName().toLowerCase().contains(query) ||
                 u.getUsername().toLowerCase().contains(query) ||
                 u.getEmail().toLowerCase().contains(query))&& u.getUserType() == UserType.LIBRARIAN) {
-                result.add((Librarian) u);
+                result.add(u);
+            }else if(u.getUserType() == UserType.LIBRARIAN &&
+            		UserType.LIBRARIAN.toString().contains(query.toUpperCase())) {
+            	result.add(u);
             }
         }
         return result;
     }
     
-    public List<Patron> searchPatron(String query) {
-        List<Patron> result = new ArrayList<>();
+    public List<User> searchPatron(String query) {
+        List<User> result = new ArrayList<>();
         
         if (query == null) {return null;}
         
@@ -106,7 +110,10 @@ public class UserManager {
             	u.getName().toLowerCase().contains(query) ||
                 u.getUsername().toLowerCase().contains(query) ||
                 u.getEmail().toLowerCase().contains(query)) && u.getUserType() == UserType.PATRON) {
-                result.add((Patron) u);
+                result.add(u);
+            }else if(u.getUserType() == UserType.PATRON &&
+            		UserType.PATRON.toString().contains(query.toUpperCase())) {
+            	result.add(u);
             }
         }
         return result;

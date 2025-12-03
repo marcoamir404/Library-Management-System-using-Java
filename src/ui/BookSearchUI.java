@@ -24,31 +24,29 @@ public class BookSearchUI extends JFrame {
     public BookSearchUI() {
         bookManager = new BookManager();
         
-        // إعدادات النافذة
+       
         setTitle("Library Management System");
         setSize(900, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
-
-        // ============================================
-        // 1. الجزء العلوي (Header Panel)
-        // ============================================
+        
+        
         JPanel headerPanel = new JPanel();
         headerPanel.setLayout(new BorderLayout());
         headerPanel.setBackground(PRIMARY_COLOR);
-        headerPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // حواف داخلية
+        headerPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); 
 
-        // عنوان البرنامج
+        
         JLabel titleLabel = new JLabel("Library Search System");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 24));
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         headerPanel.add(titleLabel, BorderLayout.NORTH);
 
-        // لوحة البحث (داخل الـ Header)
+       
         JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 15));
-        searchPanel.setOpaque(false); // عشان تاخد لون الخلفية الكحلي
+        searchPanel.setOpaque(false); 
 
         JLabel searchLabel = new JLabel("Search Book:");
         searchLabel.setForeground(Color.WHITE);
@@ -56,16 +54,45 @@ public class BookSearchUI extends JFrame {
 
         searchField = new JTextField(25);
         searchField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        searchField.setPreferredSize(new Dimension(200, 30)); // تكبير حجم حقل الكتابة
+        searchField.setPreferredSize(new Dimension(200, 30)); 
 
-        // أزرار بتصميم خاص
-        JButton searchButton = createStyledButton("Search", SECONDARY_COLOR);
-        JButton viewDetailsButton = createStyledButton("View Details", new Color(39, 174, 96)); // أخضر
-        JButton refreshButton = createStyledButton("Refresh All", new Color(149, 165, 166)); // رمادي
-        JButton filtersButton = createStyledButton("Add Filters", SECONDARY_COLOR);
+       
+        JButton searchButton = new JButton("Search");
+        searchButton.setBackground(SECONDARY_COLOR);
+        searchButton.setForeground(Color.WHITE);
+        searchButton.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        searchButton.setFocusPainted(false);
+        searchButton.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
+        searchButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        
+        
+        JButton viewDetailsButton = new JButton("View Details");
+        viewDetailsButton.setBackground(new Color(39, 174, 96));
+        viewDetailsButton.setForeground(Color.WHITE);
+        viewDetailsButton.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        viewDetailsButton.setFocusPainted(false);
+        viewDetailsButton.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
+        viewDetailsButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        
+        
+        JButton refreshButton = new JButton("Refresh All");
+        refreshButton.setBackground(new Color(149, 165, 166));
+        refreshButton.setForeground(Color.WHITE);
+        refreshButton.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        refreshButton.setFocusPainted(false);
+        refreshButton.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
+        refreshButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        
+        JButton filtersButton = new JButton("Add Filters");
+        filtersButton.setBackground(SECONDARY_COLOR);
+        filtersButton.setForeground(Color.WHITE);
+        filtersButton.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        filtersButton.setFocusPainted(false);
+        filtersButton.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
+        filtersButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        searchPanel.add(filtersButton);
         
         searchPanel.add(filtersButton);
-        searchPanel.add(searchLabel);
         searchPanel.add(searchField);
         searchPanel.add(searchButton);
         searchPanel.add(viewDetailsButton);
@@ -76,9 +103,7 @@ public class BookSearchUI extends JFrame {
 
         add(headerPanel, BorderLayout.NORTH);
 
-        // ============================================
-        // 2. جدول النتائج (Center)
-        // ============================================
+        
         String[] columnNames = {"ID", "Title", "Author", "Genre", "Status"};
         tableModel = new DefaultTableModel(columnNames, 0) {
 
@@ -92,11 +117,11 @@ public class BookSearchUI extends JFrame {
 
         resultTable = new JTable(tableModel);
         resultTable.setFillsViewportHeight(true);
-        resultTable.setRowHeight(30); // تكبير ارتفاع الصفوف
+        resultTable.setRowHeight(30); 
         resultTable.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        resultTable.setSelectionBackground(new Color(189, 195, 199)); // لون عند الاختيار
+        resultTable.setSelectionBackground(new Color(189, 195, 199));
         
-        // تحسين شكل رأس الجدول (Header)
+        
         JTableHeader tableHeader = resultTable.getTableHeader();
         tableHeader.setBackground(new Color(220, 220, 220));
         tableHeader.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -108,9 +133,6 @@ public class BookSearchUI extends JFrame {
 
         add(scrollPane, BorderLayout.CENTER);
 
-        // ============================================
-        // 3. الأكشن (Events)
-        // ============================================
         
         
         filtersButton.addActionListener(e-> {
@@ -126,23 +148,10 @@ public class BookSearchUI extends JFrame {
         
         refreshButton.addActionListener(e -> loadAllBooks());
         
-        
-
-        // تحميل مبدئي للبيانات
+       
         loadAllBooks();
     }
 
-    // دالة مساعدة لإنشاء أزرار شكلها حلو
-    private JButton createStyledButton(String text, Color bgColor) {
-        JButton btn = new JButton(text);
-        btn.setBackground(bgColor);
-        btn.setForeground(Color.WHITE);
-        btn.setFont(new Font("Segoe UI", Font.BOLD, 12));
-        btn.setFocusPainted(false); // إزالة البرواز عند الضغط
-        btn.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15)); // حشوة داخلية للزر
-        btn.setCursor(new Cursor(Cursor.HAND_CURSOR)); // شكل الماوس يد
-        return btn;
-    }
 
     private void performSearch(Filters filters) {
         String query = searchField.getText().trim();
