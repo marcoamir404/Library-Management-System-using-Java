@@ -29,7 +29,7 @@ public class LibrarianDashboard extends javax.swing.JFrame {
     private void initComponents() {
 
         LabelForTitle = new javax.swing.JPanel();
-        Title = new javax.swing.JLabel();
+        Title3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         ReservationBtn = new javax.swing.JButton();
         ReturnBookBtn = new javax.swing.JButton();
@@ -41,10 +41,10 @@ public class LibrarianDashboard extends javax.swing.JFrame {
 
         LabelForTitle.setBackground(new java.awt.Color(44, 62, 80));
 
-        Title.setBackground(new java.awt.Color(44, 62, 80));
-        Title.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        Title.setForeground(new java.awt.Color(255, 255, 255));
-        Title.setText("Library System");
+        Title3.setBackground(new java.awt.Color(44, 62, 80));
+        Title3.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        Title3.setForeground(new java.awt.Color(255, 255, 255));
+        Title3.setText("Library System");
 
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -58,42 +58,49 @@ public class LibrarianDashboard extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(LabelForTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LabelForTitleLayout.createSequentialGroup()
-                        .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(202, 202, 202))
+                        .addComponent(Title3, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(516, 516, 516))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LabelForTitleLayout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(250, 250, 250))))
+                        .addGap(640, 640, 640))))
         );
         LabelForTitleLayout.setVerticalGroup(
             LabelForTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LabelForTitleLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE)
+                .addComponent(Title3, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGap(26, 26, 26))
         );
 
         ReservationBtn.setBackground(new java.awt.Color(204, 204, 204));
-        ReservationBtn.setFont(new java.awt.Font("Palatino Linotype", 0, 14)); // NOI18N
+        ReservationBtn.setFont(new java.awt.Font("Palatino Linotype", 0, 24)); // NOI18N
         ReservationBtn.setText("Reservations");
+        ReservationBtn.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ReservationBtn.addActionListener(this::ReservationBtnActionPerformed);
 
         ReturnBookBtn.setBackground(new java.awt.Color(204, 204, 204));
-        ReturnBookBtn.setFont(new java.awt.Font("Palatino Linotype", 0, 12)); // NOI18N
+        ReturnBookBtn.setFont(new java.awt.Font("Palatino Linotype", 0, 24)); // NOI18N
         ReturnBookBtn.setText("Return Book ");
+        ReturnBookBtn.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         NotifyPatronsBtn.setBackground(new java.awt.Color(204, 204, 204));
-        NotifyPatronsBtn.setFont(new java.awt.Font("Palatino Linotype", 0, 14)); // NOI18N
+        NotifyPatronsBtn.setFont(new java.awt.Font("Palatino Linotype", 0, 24)); // NOI18N
         NotifyPatronsBtn.setText("Notify Patrons");
+        NotifyPatronsBtn.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         NotifyPatronsBtn.addActionListener(this::NotifyPatronsBtnActionPerformed);
 
         ViewBooksBtn.setBackground(new java.awt.Color(204, 204, 204));
-        ViewBooksBtn.setFont(new java.awt.Font("Palatino Linotype", 0, 12)); // NOI18N
+        ViewBooksBtn.setFont(new java.awt.Font("Palatino Linotype", 0, 24)); // NOI18N
         ViewBooksBtn.setText("View Books");
+        ViewBooksBtn.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ViewBooksBtn.addActionListener(this::ViewBooksBtnActionPerformed);
 
         CheckiutBookBtn.setBackground(new java.awt.Color(204, 204, 204));
-        CheckiutBookBtn.setFont(new java.awt.Font("Palatino Linotype", 0, 12)); // NOI18N
+        CheckiutBookBtn.setFont(new java.awt.Font("Palatino Linotype", 0, 24)); // NOI18N
         CheckiutBookBtn.setText("Checkout Book ");
+        CheckiutBookBtn.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         CheckiutBookBtn.addActionListener(this::CheckiutBookBtnActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -101,41 +108,45 @@ public class LibrarianDashboard extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(LabelForTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(20, 20, 20))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(419, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(LabelForTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(154, 154, 154)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ReservationBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(CheckiutBookBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(112, 112, 112)
+                            .addComponent(CheckiutBookBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ReservationBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ReturnBookBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(NotifyPatronsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 143, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(ViewBooksBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(264, 264, 264))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(75, 75, 75)
+                                .addComponent(ReturnBookBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(98, 98, 98)
+                                .addComponent(NotifyPatronsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ViewBooksBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(174, 174, 174)))
+                .addGap(387, 387, 387))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
                 .addComponent(LabelForTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addGap(90, 90, 90)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CheckiutBookBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ReturnBookBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
+                    .addComponent(CheckiutBookBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ReturnBookBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(80, 80, 80)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ReservationBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(NotifyPatronsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addComponent(ViewBooksBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(78, 78, 78))
+                    .addComponent(ReservationBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NotifyPatronsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(47, 47, 47)
+                .addComponent(ViewBooksBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(93, Short.MAX_VALUE))
         );
 
         pack();
@@ -148,6 +159,16 @@ public class LibrarianDashboard extends javax.swing.JFrame {
     private void NotifyPatronsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NotifyPatronsBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_NotifyPatronsBtnActionPerformed
+
+    private void ViewBooksBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewBooksBtnActionPerformed
+   BookManagement booksForm = new BookManagement();
+    booksForm.setVisible(true);   
+     this.dispose();// TODO add your handling code here:
+    }//GEN-LAST:event_ViewBooksBtnActionPerformed
+
+    private void ReservationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReservationBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ReservationBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -177,10 +198,14 @@ public class LibrarianDashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CheckiutBookBtn;
     private javax.swing.JPanel LabelForTitle;
+    private javax.swing.JPanel LabelForTitle1;
+    private javax.swing.JPanel LabelForTitle2;
     private javax.swing.JButton NotifyPatronsBtn;
     private javax.swing.JButton ReservationBtn;
     private javax.swing.JButton ReturnBookBtn;
-    private javax.swing.JLabel Title;
+    private javax.swing.JLabel Title1;
+    private javax.swing.JLabel Title2;
+    private javax.swing.JLabel Title3;
     private javax.swing.JButton ViewBooksBtn;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
