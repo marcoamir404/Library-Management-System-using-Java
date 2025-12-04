@@ -52,6 +52,7 @@ public BookManagement() {
         RemoveBtn = new javax.swing.JButton();
         AddBtn2 = new javax.swing.JButton();
         Close = new javax.swing.JButton();
+        Details = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,19 +83,19 @@ public BookManagement() {
         BookTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         BookTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Title", "Author", "Genre", "Status", "summary", "Year"
+                "ID", "Title", "Author", "Genre", "Status", "Year"
             }
         ));
         jScrollPane1.setViewportView(BookTable);
@@ -124,24 +125,31 @@ public BookManagement() {
         Close.setText("Close");
         Close.addActionListener(this::CloseActionPerformed);
 
+        Details.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        Details.setText("Details");
+        Details.addActionListener(this::DetailsActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(LabelForTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(142, 142, 142)
+                .addGap(44, 44, 44)
                 .addComponent(AddBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(58, 58, 58)
                 .addComponent(EditBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77)
+                .addGap(65, 65, 65)
                 .addComponent(RemoveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73)
+                .addGap(57, 57, 57)
                 .addComponent(Close, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(169, 169, 169))
-            .addGroup(layout.createSequentialGroup()
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Details, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1526, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,13 +158,13 @@ public BookManagement() {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
+                    .addComponent(RemoveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(AddBtn2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(EditBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Close, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(EditBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(RemoveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(AddBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(47, 47, 47))
+                    .addComponent(Details, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
@@ -193,10 +201,9 @@ if (selectedRow == -1) {
     String author = (String)BookTable.getValueAt(selectedRow, 2);
     String genre = (String)BookTable.getValueAt(selectedRow, 3);
     String status = (String)BookTable.getValueAt(selectedRow, 4);   
-    String Summary = (String)BookTable.getValueAt(selectedRow, 5);   
-        String year = (String)BookTable.getValueAt(selectedRow, 6);   
+        String year = (String)BookTable.getValueAt(selectedRow, 5);   
 
-      EditBookForm editForm = new EditBookForm(bookId, title, author, genre,year,Summary, status);
+      EditBookForm editForm = new EditBookForm(bookId, title, author, genre,status,year);
     editForm.setVisible(true);
     editForm.addWindowListener(new java.awt.event.WindowAdapter() {
         @Override
@@ -231,6 +238,20 @@ if (selectedRow == -1) {
       // TODO add your handling code here:
     }//GEN-LAST:event_CloseActionPerformed
 
+    private void DetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DetailsActionPerformed
+        // TODO add your handling code here:
+        
+          int selectedRow = BookTable.getSelectedRow();
+    if (selectedRow != -1) {
+        String bookId = (String) BookTable.getValueAt(selectedRow, 0); 
+        Book selectedBook = bookManager.searchBookById(bookId); 
+            BookDetailsUI details = new BookDetailsUI(this, selectedBook);
+            details.setVisible(true);  
+    } else {
+        JOptionPane.showMessageDialog(this, "Please select a book first!", "No Selection", JOptionPane.WARNING_MESSAGE);
+    }
+    }//GEN-LAST:event_DetailsActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -260,6 +281,7 @@ if (selectedRow == -1) {
     private javax.swing.JButton AddBtn2;
     private javax.swing.JTable BookTable;
     private javax.swing.JButton Close;
+    private javax.swing.JButton Details;
     private javax.swing.JButton EditBtn;
     private javax.swing.JPanel LabelForTitle;
     private javax.swing.JButton RemoveBtn;
