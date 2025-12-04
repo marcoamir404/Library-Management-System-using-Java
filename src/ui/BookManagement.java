@@ -79,7 +79,7 @@ public BookManagement() {
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
-        BookTable.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        BookTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         BookTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -94,7 +94,7 @@ public BookManagement() {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Title", "Author", "Genre", "Year", "Status", "summary"
+                "ID", "Title", "Author", "Genre", "Status", "summary", "Year"
             }
         ));
         jScrollPane1.setViewportView(BookTable);
