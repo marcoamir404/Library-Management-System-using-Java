@@ -192,9 +192,10 @@ if (selectedRow == -1) {
     String title = (String)BookTable.getValueAt(selectedRow, 1);
     String author = (String)BookTable.getValueAt(selectedRow, 2);
     String genre = (String)BookTable.getValueAt(selectedRow, 3);
-    String year = (String)BookTable.getValueAt(selectedRow, 4);   
-    String status = (String)BookTable.getValueAt(selectedRow, 5);   
-    String Summary = (String)BookTable.getValueAt(selectedRow, 6);   
+    String status = (String)BookTable.getValueAt(selectedRow, 4);   
+    String Summary = (String)BookTable.getValueAt(selectedRow, 5);   
+        String year = (String)BookTable.getValueAt(selectedRow, 6);   
+
       EditBookForm editForm = new EditBookForm(bookId, title, author, genre,year,Summary, status);
     editForm.setVisible(true);
     editForm.addWindowListener(new java.awt.event.WindowAdapter() {
