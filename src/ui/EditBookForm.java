@@ -20,7 +20,7 @@ public class EditBookForm extends javax.swing.JFrame {
     
     /**
      * Creates new form EditBookForm
-     */public EditBookForm(String bookId, String title, String author, String genre, String summary, String status, String status1) {
+     */public EditBookForm(String bookId, String title, String author, String genre, String summary, String status) {
     initComponents();
     
     this.bookId = bookId;
