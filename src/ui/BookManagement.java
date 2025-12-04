@@ -164,7 +164,7 @@ public BookManagement() {
         private void loadAllBooks() {
         List<Book> allBooks = bookManager.getAllBooks();
         updateTable(allBooks);
-<<<<<<< HEAD
+        
       }
         private void updateTable(List<Book> books) {
 		    model.setRowCount(0); 
@@ -195,7 +195,7 @@ public BookManagement() {
 		    String year = (String)BookTable.getValueAt(selectedRow, 4);   
 		    String status = (String)BookTable.getValueAt(selectedRow, 5);   
 		    String Summary = (String)BookTable.getValueAt(selectedRow, 6);   
-		    EditBookForm editForm = new EditBookForm(bookId, title, author, genre,year,Summary, status);
+		    EditBookForm editForm = new EditBookForm(bookId, title, author, genre,Summary, status);
 		    editForm.setVisible(true);
 		    editForm.addWindowListener(new java.awt.event.WindowAdapter() {
 		        @Override
@@ -205,47 +205,8 @@ public BookManagement() {
 		    });
 	    // TODO add your handling code here:
 	    }//GEN-LAST:event_EditBtnActionPerformed
-=======
-    }
-private void updateTable(List<Book> books) {
-    model.setRowCount(0); 
-    for (Book b : books) {
-        Object[] row = {
-            b.getBookId(),
-            b.getTitle(),
-            b.getAuthor(),
-            b.getGenre(),
-          
-            b.getStatus(),
-            b.getSummary()
-        };
-        model.addRow(row);
-    }
-}
-    private void EditBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditBtnActionPerformed
- int selectedRow = BookTable.getSelectedRow();
-if (selectedRow == -1) {
-    JOptionPane.showMessageDialog(this, "Please select a book first!");
-    return;
-}
-      String bookId = (String)BookTable.getValueAt(selectedRow, 0);
-    String title = (String)BookTable.getValueAt(selectedRow, 1);
-    String author = (String)BookTable.getValueAt(selectedRow, 2);
-    String genre = (String)BookTable.getValueAt(selectedRow, 3);
-    String status = (String)BookTable.getValueAt(selectedRow, 4);   
-        String year = (String)BookTable.getValueAt(selectedRow, 5);   
+    
 
-      EditBookForm editForm = new EditBookForm(bookId, title, author, genre,status,year);
-    editForm.setVisible(true);
-    editForm.addWindowListener(new java.awt.event.WindowAdapter() {
-        @Override
-        public void windowClosed(java.awt.event.WindowEvent e) {
-            loadAllBooks(); 
-        }
-    });
-    // TODO add your handling code here:
-    }//GEN-LAST:event_EditBtnActionPerformed
->>>>>>> 0f291a4e6857e62e52519dccd9e59fe9cc47af8c
 
     private void RemoveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveBtnActionPerformed
  
@@ -261,15 +222,9 @@ if (selectedRow == -1) {
     private void AddBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddBtn2ActionPerformed
    java.awt.EventQueue.invokeLater(() -> {
             new AddBookForm().setVisible(true); 
-<<<<<<< HEAD
         });        
     }
-     
-    
-=======
-        });        // TODO add your handling code here:
-    }//GEN-LAST:event_AddBtn2ActionPerformed
-
+             
     private void CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CloseActionPerformed
  LibrarianDashboard booksForm = new LibrarianDashboard();
     booksForm.setVisible(true);   
@@ -294,7 +249,6 @@ if (selectedRow == -1) {
     /**
      * @param args the command line arguments
      */
->>>>>>> 0f291a4e6857e62e52519dccd9e59fe9cc47af8c
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
