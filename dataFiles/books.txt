@@ -8,3 +8,5 @@ B007;To Kill a Mockingbird;Harper Lee;Fiction;1960;A novel about racial injustic
 B008;Introduction to Algorithms;Thomas H. Cormen;Education;2009;Comprehensive textbook on algorithms.;AVAILABLE
 B009;Database System Concepts;Abraham Silberschatz;Education;2010;Fundamentals of database systems.;AVAILABLE
 B010;The Pragmatic Programmer;Andrew Hunt;Programming;1999;Guide to pragmatic thinking and craftsmanship.;AVAILABLE
+B011;lknkk;kjb;jn;5050;j;AVAILABLE
+B012;khg;hgc;mhb;2021;jv;AVAILABLE

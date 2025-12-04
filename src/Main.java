@@ -4,11 +4,14 @@ import enums.*;
 import managers.*;
 
 import ui.LoginUI; // لاحظ هنا استدعينا شاشة الدخول
+import ui.UpdatePatronAccountUI;
+
 import javax.swing.SwingUtilities;
 
+import ui.AddBookForm;
 import ui.BookDetailsUI;
 import ui.BookSearchUI;
-import ui.Try;
+import ui.EditBookForm;
 public class Main {
 
     public static void main(String[] args) {
@@ -16,8 +19,8 @@ public class Main {
         System.out.println("==== LIBRARY MANAGEMENT SYSTEM TEST ====\n");
 
         // Managers
-        UserManager userManager = new UserManager();
-        BookManager bookManager = new BookManager();
+        */UserManager userManager = new UserManager();
+        /*BookManager bookManager = new BookManager();
         TransactionManager transactionManager = new TransactionManager();
         ReservationManager reservationManager = new ReservationManager();
         
@@ -27,8 +30,8 @@ public class Main {
         
         Admin admin = new Admin("A1", "admin1", "1234", "Admin User", "admin@mail.com", "01000");
         Librarian librarian = new Librarian("L1", "lib1", "abcd", "Librarian User", "lib@mail.com", "01111");
-        Patron p1 = new Patron("P1", "p1", "1111", "Ahmed Ali", "ahmed@mail.com", "01222");
-        Patron p2 = new Patron("P2", "p2", "2222", "Sara Mohamed", "sara@mail.com", "01333");
+        */Patron p1 = new Patron("P1", "p1", "1111", "Ahmed Ali", "ahmed@mail.com", "01222");
+        /*Patron p2 = new Patron("P2", "p2", "2222", "Sara Mohamed", "sara@mail.com", "01333");
 
         userManager.addUser(admin);
         userManager.addUser(librarian);
@@ -128,9 +131,12 @@ public class Main {
             @Override
             public void run() {
                 // فتح شاشة تسجيل الدخول بدلاً من شاشة البحث مباشرة
-                new LoginUI().setVisible(true);
-                //new BookSearchUI().setVisible(true);
-            	//new Try().setVisible(true);
+                //new LoginUI().setVisible(true);
+                new BookSearchUI().setVisible(true);
+                
+            	//new EditBookForm(null, null, null, null, null, null, null).setVisible(true);
+            	//new AddBookForm().setVisible(true);
+            	
             }
             });
 

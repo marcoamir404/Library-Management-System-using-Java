@@ -5,6 +5,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
+
+import dataModel.Patron;
 import dataModel.User;
 import managers.UserManager;
 
@@ -38,7 +40,7 @@ public class UserListUI extends JFrame {
         add(topPanel, BorderLayout.NORTH);
 
         // ====== Table setup ======
-        String[] cols = {"ID", "Name", "Username", "Type", "Email"};
+        String[] cols = {"ID", "Name", "Username", "Email", "Type"};
         model = new DefaultTableModel(cols, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -114,6 +116,14 @@ public class UserListUI extends JFrame {
                 userManager.deleteUser(id);
                 loadUsers();
             }
+        });
+        
+        editBtn.addActionListener(e ->{
+        	int row = table.getSelectedRow();
+        	if(row == -1) return;
+        	String id = (String) table.getValueAt(row, 0);
+        	new UpdatePatronAccountUI(this,userManager.searchPatronById(id), userManager ).setVisible(true);
+        	loadUsers();
         });
         
         loadUsers();
