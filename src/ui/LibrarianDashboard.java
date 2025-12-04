@@ -77,23 +77,29 @@ public class LibrarianDashboard extends javax.swing.JFrame {
         ReservationBtn.setBackground(new java.awt.Color(204, 204, 204));
         ReservationBtn.setFont(new java.awt.Font("Palatino Linotype", 0, 14)); // NOI18N
         ReservationBtn.setText("Reservations");
+        ReservationBtn.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         ReturnBookBtn.setBackground(new java.awt.Color(204, 204, 204));
         ReturnBookBtn.setFont(new java.awt.Font("Palatino Linotype", 0, 12)); // NOI18N
         ReturnBookBtn.setText("Return Book ");
+        ReturnBookBtn.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         NotifyPatronsBtn.setBackground(new java.awt.Color(204, 204, 204));
         NotifyPatronsBtn.setFont(new java.awt.Font("Palatino Linotype", 0, 14)); // NOI18N
         NotifyPatronsBtn.setText("Notify Patrons");
+        NotifyPatronsBtn.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         NotifyPatronsBtn.addActionListener(this::NotifyPatronsBtnActionPerformed);
 
         ViewBooksBtn.setBackground(new java.awt.Color(204, 204, 204));
         ViewBooksBtn.setFont(new java.awt.Font("Palatino Linotype", 0, 12)); // NOI18N
         ViewBooksBtn.setText("View Books");
+        ViewBooksBtn.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ViewBooksBtn.addActionListener(this::ViewBooksBtnActionPerformed);
 
         CheckiutBookBtn.setBackground(new java.awt.Color(204, 204, 204));
         CheckiutBookBtn.setFont(new java.awt.Font("Palatino Linotype", 0, 12)); // NOI18N
         CheckiutBookBtn.setText("Checkout Book ");
+        CheckiutBookBtn.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         CheckiutBookBtn.addActionListener(this::CheckiutBookBtnActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -148,6 +154,12 @@ public class LibrarianDashboard extends javax.swing.JFrame {
     private void NotifyPatronsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NotifyPatronsBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_NotifyPatronsBtnActionPerformed
+
+    private void ViewBooksBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewBooksBtnActionPerformed
+   BookManagement booksForm = new BookManagement();
+    booksForm.setVisible(true);   
+     this.dispose();// TODO add your handling code here:
+    }//GEN-LAST:event_ViewBooksBtnActionPerformed
 
     /**
      * @param args the command line arguments
