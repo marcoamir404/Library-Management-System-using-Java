@@ -15,6 +15,7 @@ public class ReservationManager {
 	private ReservationFileHandler rf = new ReservationFileHandler();
 	
 	private List<Reservation> reservations = Reservation.reservations;
+	private List<String> messages = new ArrayList<>();
 	
 	BookManager bookManager = new BookManager();
 	UserManager userManager = new UserManager();
@@ -98,7 +99,7 @@ public class ReservationManager {
     }
 	
 	private void notifyPatronIfBookCurrentAvailable(Patron p, Reservation r) {
-        System.out.println("NOTIFICATION: Patron " + p.getName() +
+        messages.add("NOTIFICATION: Patron " + p.getName() +
                            " → Your reserved book (" + r.getBookId() + ") is available!");
         r.setNotificationStatus(true);
         bookManager.searchBookById(r.getBookId()).setStatus(BookStatus.RESERVED);

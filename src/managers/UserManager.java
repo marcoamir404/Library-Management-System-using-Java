@@ -79,6 +79,26 @@ public class UserManager {
         return result;
     }
     
+    public List<User> searchAdmin(String query) {
+        List<User> result = new ArrayList<>();
+        
+        if (query == null) {return null;}
+        
+        query = query.toLowerCase();
+        for (User u : users) {
+            if ((u.getUserId().toLowerCase().contains(query)||
+            	u.getName().toLowerCase().contains(query) ||
+                u.getUsername().toLowerCase().contains(query) ||
+                u.getEmail().toLowerCase().contains(query))&& u.getUserType() == UserType.ADMIN) {
+                result.add(u);
+            }else if(u.getUserType() == UserType.ADMIN &&
+            		UserType.ADMIN.toString().contains(query.toUpperCase())) {
+            	result.add(u);
+            }
+        }
+        return result;
+    }
+    
     public List<User> searchLibrarian(String query) {
         List<User> result = new ArrayList<>();
         

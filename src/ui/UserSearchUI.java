@@ -146,9 +146,7 @@ public class UserSearchUI extends JFrame {
         buttonsPanel.add(deleteButton);
         add(buttonsPanel, BorderLayout.SOUTH);
 
-        loadAllUsers();
 
-        // ===== Action Listeners =====
         searchButton.addActionListener(e -> performSearch());
         refreshButton.addActionListener(e -> loadAllUsers());
         backButton.addActionListener(e -> dispose());
@@ -164,6 +162,10 @@ public class UserSearchUI extends JFrame {
                 loadAllUsers();
             }
         });
+        
+        loadAllUsers();
+
+        
     }
 
 
@@ -188,7 +190,8 @@ public class UserSearchUI extends JFrame {
     
     private void performSearch() {
         String query = searchField.getText().toLowerCase();
-        List<User> results = userManager.searchLibrarian(query);
+        List<User> results = userManager.searchAdmin(query);
+        results.addAll(userManager.searchLibrarian(query));
         results.addAll(userManager.searchPatron(query));
         updateTable(results);
     }
@@ -222,12 +225,35 @@ public class UserSearchUI extends JFrame {
     }
     
 
-    private void editUser() { // edit with userform
-        User u = getSelectedUser();
-        if (u != null) {
-            JOptionPane.showMessageDialog(this, "Edit user: " + u.getUsername());
-        }
+    private void editUser() {
+    	int row = resultTable.getSelectedRow();
+    	if(row == -1) return;
+    	String id = (String) resultTable.getValueAt(row, 0);
+    	User target = null;
+    	for (User u : User.users) {
+    	    if (u.getUserId().equals(id)) {
+    	        target = u;   
+    	        break;
+    	    }
+    	}
+
+    	if (target != null) {
+    		 UserFormUI form = new UserFormUI(this, userManager, target);
+
+    		    form.addWindowListener(new java.awt.event.WindowAdapter() {
+    		        @Override
+    		        public void windowClosed(java.awt.event.WindowEvent e) {
+    		            loadAllUsers();
+    		        }
+    		    });
+
+    		    form.setVisible(true);
+    	}
+    	loadAllUsers();
     }
+    
+    
+    
 
 
     public static void main(String[] args) {

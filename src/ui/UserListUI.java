@@ -4,8 +4,11 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.lang.annotation.Target;
 import java.util.List;
 
+import dataModel.Admin;
+import dataModel.Librarian;
 import dataModel.Patron;
 import dataModel.User;
 import managers.UserManager;
@@ -107,6 +110,20 @@ public class UserListUI extends JFrame {
 
         add(buttonPanel, BorderLayout.SOUTH);
         
+        
+        addBtn.addActionListener(e ->{
+        	 UserFormUI form = new UserFormUI(this, userManager, null);
+
+        	    form.addWindowListener(new java.awt.event.WindowAdapter() {
+        	        @Override
+        	        public void windowClosed(java.awt.event.WindowEvent e) {
+        	            loadUsers();
+        	        }
+        	    });
+
+        	    form.setVisible(true);
+        });
+        
         deleteBtn.addActionListener(e -> {
             int row = table.getSelectedRow();
             if(row == -1) return;
@@ -122,12 +139,31 @@ public class UserListUI extends JFrame {
         	int row = table.getSelectedRow();
         	if(row == -1) return;
         	String id = (String) table.getValueAt(row, 0);
-        	new UpdatePatronAccountUI(this,userManager.searchPatronById(id), userManager ).setVisible(true);
-        	loadUsers();
+        	User target = null;
+        	for (User u : User.users) {
+        	    if (u.getUserId().equals(id)) {
+        	        target = u;   
+        	        break;
+        	    }
+        	}
+
+        	if (target != null) {
+        		 UserFormUI form = new UserFormUI(this, userManager, target);
+
+        		    form.addWindowListener(new java.awt.event.WindowAdapter() {
+        		        @Override
+        		        public void windowClosed(java.awt.event.WindowEvent e) {
+        		            loadUsers();
+        		        }
+        		    });
+
+        		    form.setVisible(true);
+        	}
         });
         
         loadUsers();
     }
+        
 
     private void loadUsers() {
         model.setRowCount(0);

@@ -16,11 +16,15 @@ public class TransactionManager {
 	
     private List<Transaction> transactions = Transaction.transactions;
 
-	private UserManager userManager = new UserManager();
-	private BookManager bookManager = new BookManager();
-	
-	
-	public TransactionManager () {
+    private UserManager userManager;
+    private BookManager bookManager;
+    private ReservationManager reservationManager;
+
+    public TransactionManager(UserManager um, BookManager bm, ReservationManager rm) {
+        this.userManager = um;
+        this.bookManager = bm;
+        this.reservationManager = rm;
+        
 		if (transactions.isEmpty()) {
 			transactions.addAll(tf.loadTransactions());
     }
@@ -74,7 +78,9 @@ public class TransactionManager {
             patron.removeCurrentLoan(bookId);
         }
         
+        reservationManager.notifyPatronIfAvailable(bookId);
         tf.saveTransactions(transactions);
+        
         return true;
 	}
 	

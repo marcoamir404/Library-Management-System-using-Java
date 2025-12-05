@@ -5,13 +5,16 @@ import managers.*;
 
 import ui.LoginUI; // لاحظ هنا استدعينا شاشة الدخول
 import ui.UpdatePatronAccountUI;
+import ui.UserFormUI;
+import ui.UserListUI;
+import ui.UserSearchUI;
 
 import javax.swing.SwingUtilities;
 
-import ui.AddBookForm;
 import ui.BookDetailsUI;
 import ui.BookSearchUI;
-import ui.EditBookForm;
+import ui.LibrarianDashboardUI;
+//import ui.BookManagementUI;
 public class Main {
 
     public static void main(String[] args) {
@@ -45,8 +48,8 @@ public class Main {
         // ----------------------------
         // 2. Admin adds books
         // ----------------------------
-        Book b1 = new Book("B1", "Clean Code", "Robert Martin", "Programming", 2008, "A book about writing clean code.");
-        Book b2 = new Book("B2", "Harry Potter", "J.K. Rowling", "Fantasy", 1997, "Magic world adventure.");
+       */ Book b1 = new Book("B1", "Clean Code", "Robert Martin", "Programming", 2008, "A book about writing clean code.");
+        /*Book b2 = new Book("B2", "Harry Potter", "J.K. Rowling", "Fantasy", 1997, "Magic world adventure.");
         Book b3 = new Book("B3", "Data Structures", "Weiss", "Education", 2000, "DSA fundamentals.");
 
         admin.addBook(b1);
@@ -132,11 +135,12 @@ public class Main {
             public void run() {
                 // فتح شاشة تسجيل الدخول بدلاً من شاشة البحث مباشرة
                 //new LoginUI().setVisible(true);
-                new BookSearchUI().setVisible(true);
-                
-            	//new EditBookForm(null, null, null, null, null, null, null).setVisible(true);
+                //new BookSearchUI().setVisible(true);
             	//new AddBookForm().setVisible(true);
-            	
+               // UserFormUI frame = new UserFormUI(null, userManager, p1); // no parent window
+                //frame.setVisible(true);
+            	//new UserListUI(userManager).setVisible(true);
+            	new LibrarianDashboardUI().setVisible(true);
             }
             });
 
