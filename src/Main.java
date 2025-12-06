@@ -12,6 +12,7 @@ import ui.UserSearchUI;
 import javax.swing.SwingUtilities;
 
 import ui.BookDetailsUI;
+import ui.BookFormUI;
 import ui.BookSearchUI;
 import ui.LibrarianDashboardUI;
 //import ui.BookManagementUI;
@@ -23,8 +24,8 @@ public class Main {
 
         // Managers
         */UserManager userManager = new UserManager();
-        /*BookManager bookManager = new BookManager();
-        TransactionManager transactionManager = new TransactionManager();
+        /**/BookManager bookManager = new BookManager();
+        /*TransactionManager transactionManager = new TransactionManager();
         ReservationManager reservationManager = new ReservationManager();
         
         // ----------------------------
@@ -140,6 +141,7 @@ public class Main {
                // UserFormUI frame = new UserFormUI(null, userManager, p1); // no parent window
                 //frame.setVisible(true);
             	//new UserListUI(userManager).setVisible(true);
+            	new BookFormUI(null, bookManager, null).setVisible(true);
             	new LibrarianDashboardUI().setVisible(true);
             }
             });

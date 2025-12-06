@@ -170,7 +170,7 @@ public class LibrarianDashboardUI extends JFrame {
                 if (transactionManager.checkoutBook(patronId, bookId)) {
                     JOptionPane.showMessageDialog(this, "Book checked out.");
                 } else {
-                    JOptionPane.showMessageDialog(this, "Checkout failed!", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Checkingout failed!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -184,9 +184,9 @@ public class LibrarianDashboardUI extends JFrame {
                 String bookId = dialog.getBookId();
 
                 if (transactionManager.returnBook(patronId, bookId)) {
-                    JOptionPane.showMessageDialog(this, "Book checked out.");
+                    JOptionPane.showMessageDialog(this, "Book Reterned.");
                 } else {
-                    JOptionPane.showMessageDialog(this, "Checkout failed!", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Returning failed!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -200,23 +200,23 @@ public class LibrarianDashboardUI extends JFrame {
         });
         
         btnViewReservatoins.addActionListener(e ->{
-        	BorrowReturnDialog dialog = new BorrowReturnDialog(this, "Return Book");
+        	
+        });
+        
+        btnReserveBook.addActionListener(e ->{
+        	BorrowReturnDialog dialog = new BorrowReturnDialog(this, "Reserve Book");
             dialog.setVisible(true);
 
             if(dialog.isSubmitted()) {
                 String patronId = dialog.getPatronId();
                 String bookId = dialog.getBookId();
 
-                if (transactionManager.renewBook(patronId, bookId)) {
-                    JOptionPane.showMessageDialog(this, "Book checked out.");
+                if (reservationManager.reserveBook(patronId, bookId)) {
+                    JOptionPane.showMessageDialog(this, "Book Reserved.");
                 } else {
-                    JOptionPane.showMessageDialog(this, "Checkout failed!", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Reservation failed!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
-        });
-        
-        btnReserveBook.addActionListener(e ->{
-        	
         });
         
         btnViewTransactions.addActionListener(e ->{
@@ -224,14 +224,17 @@ public class LibrarianDashboardUI extends JFrame {
         });
         
         btnRenewBook.addActionListener(e ->{
-        	BorrowReturnDialog dialog = new BorrowReturnDialog(this, "Return Book");
+        	BorrowReturnDialog dialog = new BorrowReturnDialog(this, "Renew Book");
             dialog.setVisible(true);
 
             if(dialog.isSubmitted()) {
                 String patronId = dialog.getPatronId();
                 String bookId = dialog.getBookId();
-
-                transactionManager.renewBook(patronId, bookId);
+                if (transactionManager.renewBook(patronId, bookId)) {
+                    JOptionPane.showMessageDialog(this, "Book Renewed.");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Renewing failed!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
          });
     }
