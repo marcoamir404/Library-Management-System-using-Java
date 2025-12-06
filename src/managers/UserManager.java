@@ -34,11 +34,29 @@ public class UserManager {
     }
 
     public boolean deleteUser(String userId) {
-    	if(userId == null) { return false;}
-    	boolean removed = users.removeIf(u -> u.getUserId().equals(userId));
-        if(removed) {uf.saveUsers(users);}
-        return removed;
-    }
+	    if (userId == null) return false;
+
+	    User target = null;
+	    for (User u : users) {
+	        if (u.getUserId().equalsIgnoreCase(userId)) {
+	            target = u;
+	            break;
+	        }
+	    }
+	    if (target == null) return false;
+
+	    if (target instanceof Patron) {
+	        Patron p = (Patron) target;
+	        if (!p.getCurrentLoans().isEmpty()) {
+	            return false;
+	        }
+	    }
+	    boolean removed = users.remove(target);
+	    if (removed) uf.saveUsers(users);
+
+	    return removed;
+	}
+
 
     public boolean updateUser(User updatedUser) {
     	if(updatedUser == null) {return false;}

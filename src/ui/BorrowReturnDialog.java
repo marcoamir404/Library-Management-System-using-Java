@@ -1,41 +1,90 @@
 package ui;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
 import java.awt.*;
 
 public class BorrowReturnDialog extends JDialog {
 
-    private JTextField txtPatronId, txtBookId;
+
+	private static final long serialVersionUID = 1L;
+	private JTextField txtPatronId, txtBookId;
     private boolean submitted = false;
 
+    private final Color COLOR_PRIMARY = new Color(39, 174, 96); 
+    private final Color COLOR_BG = new Color(245, 247, 250);
+
     public BorrowReturnDialog(JFrame parent, String title) {
-        super(parent, title, true);
-        setSize(391, 262);
+    	super(parent, title,true);
+
+        setSize(400, 350);
         setLocationRelativeTo(parent);
-        getContentPane().setLayout(new GridLayout(6, 1, 5, 5));
+        setLayout(new BorderLayout());
+        getContentPane().setBackground(COLOR_BG);
 
-        getContentPane().add(new JLabel("Patron ID:", SwingConstants.CENTER));
+        JPanel header = new JPanel();
+        header.setBackground(COLOR_PRIMARY);
+        header.setBorder(new EmptyBorder(15, 0, 15, 0));
+        JLabel title1 = new JLabel(title);
+        title1.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        title1.setForeground(Color.WHITE);
+        header.add(title1);
+        add(header, BorderLayout.NORTH);
+
+        JPanel form = new JPanel(new GridLayout(4, 1, 10, 10));
+        form.setBorder(new EmptyBorder(20, 40, 20, 40));
+        form.setBackground(COLOR_BG);
+       
+        JLabel patronID = new JLabel("Patron ID:");
+        patronID.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        patronID.setForeground(Color.DARK_GRAY);
+        form.add(patronID);
+        
         txtPatronId = new JTextField();
-        getContentPane().add(txtPatronId);
+        txtPatronId.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        form.add(txtPatronId);
 
-        getContentPane().add(new JLabel("Book ID:", SwingConstants.CENTER));
+        JLabel bookId = new JLabel("Book ID:");
+        bookId.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        bookId.setForeground(Color.DARK_GRAY);
+        form.add(bookId);
+        
         txtBookId = new JTextField();
-        getContentPane().add(txtBookId);
+        txtBookId.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        form.add(txtBookId);
 
-        JButton btnSubmit = new JButton("Confirm");
+        add(form, BorderLayout.CENTER);
+
+        JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 15));
+        btnPanel.setBackground(COLOR_BG);
+
+        JButton btnConfirm = new JButton("Confirm");
+        btnConfirm.setBackground(COLOR_PRIMARY);
+        btnConfirm.setForeground(Color.WHITE);
+        btnConfirm.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        btnConfirm.setFocusPainted(false);
+        btnConfirm.setPreferredSize(new Dimension(140, 35));
+        
         JButton btnCancel = new JButton("Cancel");
+        btnCancel.setBackground(Color.GRAY);
+        btnCancel.setForeground(Color.WHITE);
+        btnCancel.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        btnCancel.setFocusPainted(false);
+        btnCancel.setPreferredSize(new Dimension(140, 35));
 
-        JPanel btnPanel = new JPanel();
-        btnPanel.add(btnSubmit);
-        btnPanel.add(btnCancel);
-        getContentPane().add(btnPanel);
-
-        btnSubmit.addActionListener(e -> {
+        btnConfirm.addActionListener(e -> {
             submitted = true;
             dispose();
         });
-
         btnCancel.addActionListener(e -> dispose());
+
+        btnPanel.add(btnConfirm);
+        btnPanel.add(btnCancel);
+        add(btnPanel, BorderLayout.SOUTH);
+
+       
+
     }
 
     public boolean isSubmitted() { return submitted; }

@@ -11,8 +11,10 @@ import ui.UserSearchUI;
 
 import javax.swing.SwingUtilities;
 
+import ui.AdminDashBoardUI;
 import ui.BookDetailsUI;
 import ui.BookFormUI;
+import ui.BookManagementUI;
 import ui.BookSearchUI;
 import ui.LibrarianDashboardUI;
 //import ui.BookManagementUI;
@@ -138,11 +140,13 @@ public class Main {
                 //new LoginUI().setVisible(true);
                 //new BookSearchUI().setVisible(true);
             	//new AddBookForm().setVisible(true);
-               // UserFormUI frame = new UserFormUI(null, userManager, p1); // no parent window
+                //UserFormUI frame = new UserFormUI(null, userManager, p1); // no parent window
                 //frame.setVisible(true);
             	//new UserListUI(userManager).setVisible(true);
-            	new BookFormUI(null, bookManager, null).setVisible(true);
+            	//new BookFormUI(null, bookManager, null).setVisible(true);
             	new LibrarianDashboardUI().setVisible(true);
+            	//new BookManagementUI().setVisible(true);
+            	//new AdminDashBoardUI().setVisible(true);
             }
             });
 

@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import dataModel.Librarian;
+import dataModel.Patron;
 import managers.BookManager;
 import managers.ReservationManager;
 import managers.TransactionManager;
@@ -107,18 +108,33 @@ public class LibrarianDashboardUI extends JFrame {
 	     gbc_btnSearshUser.gridx = 1;
 	     gbc_btnSearshUser.gridy = 1;
 	     panel.add(btnSearchUser, gbc_btnSearshUser);
-	      
-           
-       JButton btnViewReservatoins = new JButton("View Reservatoins");
-       btnViewReservatoins.setPreferredSize(new Dimension(300, 80));
-       btnViewReservatoins.setForeground(Color.WHITE);
-       btnViewReservatoins.setFont(new Font("Segoe UI", Font.BOLD, 18));
-       btnViewReservatoins.setBackground(new Color(39, 174, 96));
-       GridBagConstraints gbc_btnViewReservatoins = new GridBagConstraints();
-       gbc_btnViewReservatoins.insets = new Insets(0, 0, 5, 5);
-       gbc_btnViewReservatoins.gridx = 0;
-       gbc_btnViewReservatoins.gridy = 2;
-       panel.add(btnViewReservatoins, gbc_btnViewReservatoins);
+       
+       
+       JButton btnRenewBook = new JButton("Renew Book");
+       btnRenewBook.setPreferredSize(new Dimension(300, 80));
+       btnRenewBook.setForeground(Color.WHITE);
+       btnRenewBook.setFont(new Font("Segoe UI", Font.BOLD, 18));
+       btnRenewBook.setBackground(new Color(39, 174, 96));
+       GridBagConstraints gbc_btnRenewBook = new GridBagConstraints();
+       gbc_btnRenewBook.insets = new Insets(0, 0, 5, 5);
+       gbc_btnRenewBook.gridx = 0;
+       gbc_btnRenewBook.gridy = 2;
+       panel.add(btnRenewBook, gbc_btnRenewBook);
+       
+       btnRenewBook.addActionListener(e ->{
+       	BorrowReturnDialog dialog = new BorrowReturnDialog(this, "Renew Book");
+           dialog.setVisible(true);
+
+           if(dialog.isSubmitted()) {
+               String patronId = dialog.getPatronId();
+               String bookId = dialog.getBookId();
+               if (transactionManager.renewBook(patronId, bookId)) {
+                   JOptionPane.showMessageDialog(this, "Book Renewed.");
+               } else {
+                   JOptionPane.showMessageDialog(this, "Renewing failed!", "Error", JOptionPane.ERROR_MESSAGE);
+               }
+           }
+        });
        
        
        JButton btnReserveBook = new JButton("Reserve Book");
@@ -144,17 +160,21 @@ public class LibrarianDashboardUI extends JFrame {
        gbc_btnViewTransactions.gridy = 3;
        panel.add(btnViewTransactions, gbc_btnViewTransactions);
        
+           
+       JButton btnViewReservatoins = new JButton("View Reservatoins");
+       btnViewReservatoins.setPreferredSize(new Dimension(300, 80));
+       btnViewReservatoins.setForeground(Color.WHITE);
+       btnViewReservatoins.setFont(new Font("Segoe UI", Font.BOLD, 18));
+       btnViewReservatoins.setBackground(new Color(255, 128, 0));
+       GridBagConstraints gbc_btnViewReservatoins = new GridBagConstraints();
+       gbc_btnViewReservatoins.insets = new Insets(0, 0, 5, 0);
+       gbc_btnViewReservatoins.gridx = 1;
+       gbc_btnViewReservatoins.gridy = 3;
+       panel.add(btnViewReservatoins, gbc_btnViewReservatoins);
        
-       JButton btnRenewBook = new JButton("Renew Book");
-       btnRenewBook.setPreferredSize(new Dimension(300, 80));
-       btnRenewBook.setForeground(Color.WHITE);
-       btnRenewBook.setFont(new Font("Segoe UI", Font.BOLD, 18));
-       btnRenewBook.setBackground(new Color(255, 128, 0));
-       GridBagConstraints gbc_btnRenewBook = new GridBagConstraints();
-       gbc_btnRenewBook.insets = new Insets(0, 0, 5, 0);
-       gbc_btnRenewBook.gridx = 1;
-       gbc_btnRenewBook.gridy = 3;
-       panel.add(btnRenewBook, gbc_btnRenewBook);
+       btnViewReservatoins.addActionListener(e ->{
+       	new ReservationsUI(this, userManager.searchPatron("patron")).setVisible(true);
+       });
        
        
     
@@ -199,10 +219,6 @@ public class LibrarianDashboardUI extends JFrame {
         	new UserSearchUI().setVisible(true);
         });
         
-        btnViewReservatoins.addActionListener(e ->{
-        	
-        });
-        
         btnReserveBook.addActionListener(e ->{
         	BorrowReturnDialog dialog = new BorrowReturnDialog(this, "Reserve Book");
             dialog.setVisible(true);
@@ -220,23 +236,8 @@ public class LibrarianDashboardUI extends JFrame {
         });
         
         btnViewTransactions.addActionListener(e ->{
-        	
+        	new TransactionsUI(this, userManager.searchPatron("patron")).setVisible(true);
         });
-        
-        btnRenewBook.addActionListener(e ->{
-        	BorrowReturnDialog dialog = new BorrowReturnDialog(this, "Renew Book");
-            dialog.setVisible(true);
-
-            if(dialog.isSubmitted()) {
-                String patronId = dialog.getPatronId();
-                String bookId = dialog.getBookId();
-                if (transactionManager.renewBook(patronId, bookId)) {
-                    JOptionPane.showMessageDialog(this, "Book Renewed.");
-                } else {
-                    JOptionPane.showMessageDialog(this, "Renewing failed!", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-         });
     }
 
 }

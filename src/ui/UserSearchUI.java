@@ -6,9 +6,7 @@ import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.util.List;
 
-import dataModel.Book;
-import dataModel.Librarian;
-import dataModel.Patron;
+
 import dataModel.User;
 import managers.UserManager;
 
@@ -153,14 +151,26 @@ public class UserSearchUI extends JFrame {
         viewButton.addActionListener(e -> viewUser());
         editButton.addActionListener(e -> editUser());
         deleteButton.addActionListener(e -> {
-            int row = resultTable.getSelectedRow();
-            if(row == -1) return;
-            String id = (String) resultTable.getValueAt(row, 0);
-            int confirm = JOptionPane.showConfirmDialog(this, "Delete User " + id + "?");
-            if(confirm == JOptionPane.YES_OPTION) {
-                userManager.deleteUser(id);
-                loadAllUsers();
-            }
+        	int row = resultTable.getSelectedRow();
+    	    if (row == -1) {
+    	        JOptionPane.showMessageDialog(this, "Select a user first!");
+    	        return;
+    	    }
+
+    	    String id = (String) resultTable.getValueAt(row, 0);
+
+    	    int confirm = JOptionPane.showConfirmDialog(this,"Delete user " + id + "?","Confirm",JOptionPane.YES_NO_OPTION);
+
+    	    if (confirm != JOptionPane.YES_OPTION) return;
+
+    	    boolean success = userManager.deleteUser(id);
+
+    	    if (success) {
+    	        JOptionPane.showMessageDialog(this, "User deleted successfully!");
+    	        loadAllUsers();
+    	    } else {
+    	        JOptionPane.showMessageDialog(this,"Cannot delete this user.\nThey still have borrowed books!","Delete Failed",JOptionPane.WARNING_MESSAGE);
+    	    }
         });
         
         loadAllUsers();

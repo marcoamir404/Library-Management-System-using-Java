@@ -36,13 +36,13 @@ public class BookManager {
 	public boolean updateBook(Book book) {
 		if(book ==null) return false;
 		
-		for(Book b : books) {
-			if(b.getBookId().equals(book.getBookId())) {
-				b.updateDetails(book);
-				bf.saveBooks(books);
-				return true;
-			}
-		}
+		 for (int i = 0; i < Book.books.size(); i++) {
+		        if (Book.books.get(i).getBookId().equals(book.getBookId())) {
+		            Book.books.set(i, book);
+		            bf.saveBooks(books);
+		            return true;
+		        }
+		 }
 		return false;
 	}
 	

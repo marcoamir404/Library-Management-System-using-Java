@@ -14,7 +14,6 @@ public class BookFormUI extends JDialog {
     private Book bookToEdit;
     private boolean isSaved = false;
 
-    // الألوان
     private final Color COLOR_PRIMARY = new Color(44, 62, 80);
 
     public BookFormUI(Window parent, BookManager manager, Book book) {
@@ -115,7 +114,7 @@ public class BookFormUI extends JDialog {
             int year = Integer.parseInt(yearStr);
             
             if (bookToEdit == null) {
-                String id = "B" + (Book.books.size()+1);
+                String id = generateBookId();
                 Book newBook = new Book(id, title, author, genre, year, summary);
                 boolean added = bookManager.addBook(newBook);
                 if (!added) {
@@ -139,6 +138,22 @@ public class BookFormUI extends JDialog {
             JOptionPane.showMessageDialog(this, "Year must be a valid number!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+    
+    public static String generateBookId() {
+        int max = 0;
+
+        for (Book b : Book.books) {
+            try {
+                String numStr = b.getBookId().substring(1);
+                int num = Integer.parseInt(numStr);
+                if (num > max) max = num;
+            } catch (Exception ignored) {}
+        }
+
+        return "B" + (max + 1);
+    }
+
+
 
     public boolean isSaved() {
         return isSaved;

@@ -21,6 +21,7 @@ public class UserListUI extends JFrame {
     private DefaultTableModel model;
     private JButton addBtn, editBtn, deleteBtn, backBtn;
     private UserManager userManager;
+    private JButton searchBtn;
 
     public UserListUI(UserManager userManager) {
         this.userManager = userManager;
@@ -29,9 +30,8 @@ public class UserListUI extends JFrame {
         setSize(900, 500);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLayout(new BorderLayout());
+        getContentPane().setLayout(new BorderLayout());
 
-        // ====== Top Panel ======
         JPanel topPanel = new JPanel();
         topPanel.setBackground(new Color(44, 62, 80));
         topPanel.setPreferredSize(new Dimension(getWidth(), 70));
@@ -40,9 +40,8 @@ public class UserListUI extends JFrame {
         titleLabel.setFont(new Font("Arial", Font.BOLD, 28));
         titleLabel.setForeground(Color.WHITE);
         topPanel.add(titleLabel);
-        add(topPanel, BorderLayout.NORTH);
+        getContentPane().add(topPanel, BorderLayout.NORTH);
 
-        // ====== Table setup ======
         String[] cols = {"ID", "Name", "Username", "Email", "Type"};
         model = new DefaultTableModel(cols, 0) {
             @Override
@@ -71,7 +70,7 @@ public class UserListUI extends JFrame {
 
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        add(scrollPane, BorderLayout.CENTER);
+        getContentPane().add(scrollPane, BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(2, 2, 15, 10)); 
@@ -87,29 +86,62 @@ public class UserListUI extends JFrame {
         editBtn.setBackground(new Color(255, 165, 0));
         editBtn.setForeground(Color.WHITE);
         editBtn.setPreferredSize(new Dimension(160, 40));
-
-        deleteBtn = new JButton("Delete");
-        deleteBtn.setBackground(new Color(220, 20, 60));
-        deleteBtn.setForeground(Color.WHITE);
         
         backBtn = new JButton("Back to Dashboard");
         backBtn.setBackground(new Color(128, 128, 128));
         backBtn.setForeground(Color.WHITE);
-        deleteBtn.setPreferredSize(new Dimension(160, 40));
 
         addBtn.setFocusPainted(false);
         editBtn.setFocusPainted(false);
-        deleteBtn.setFocusPainted(false);
         backBtn.setFocusPainted(false);
         backBtn.setPreferredSize(new Dimension(160, 40));
 
         buttonPanel.add(addBtn);
         buttonPanel.add(editBtn);
-        buttonPanel.add(deleteBtn);
         buttonPanel.add(backBtn);
 
-        add(buttonPanel, BorderLayout.SOUTH);
+        getContentPane().add(buttonPanel, BorderLayout.SOUTH);
         
+                deleteBtn = new JButton("Delete");
+                deleteBtn.setBackground(new Color(220, 20, 60));
+                deleteBtn.setForeground(Color.WHITE);
+                deleteBtn.setPreferredSize(new Dimension(160, 40));
+                deleteBtn.setFocusPainted(false);
+                buttonPanel.add(deleteBtn);
+                
+                deleteBtn.addActionListener(e -> {
+                	 int row = table.getSelectedRow();
+                	    if (row == -1) {
+                	        JOptionPane.showMessageDialog(this, "Select a user first!");
+                	        return;
+                	    }
+
+                	    String id = (String) table.getValueAt(row, 0);
+
+                	    int confirm = JOptionPane.showConfirmDialog(this,"Delete user " + id + "?","Confirm",JOptionPane.YES_NO_OPTION);
+
+                	    if (confirm != JOptionPane.YES_OPTION) return;
+
+                	    boolean success = userManager.deleteUser(id);
+
+                	    if (success) {
+                	        JOptionPane.showMessageDialog(this, "User deleted successfully!");
+                	        loadUsers();
+                	    } else {
+                	        JOptionPane.showMessageDialog(this,"Cannot delete this user.\nThey still have borrowed books!","Delete Failed",JOptionPane.WARNING_MESSAGE);
+                	    }
+                });
+        
+        searchBtn = new JButton("Search");
+        searchBtn.setPreferredSize(new Dimension(160, 40));
+        searchBtn.setForeground(Color.WHITE);
+        searchBtn.setFocusPainted(false);
+        searchBtn.setBackground(new Color(44,62,80));
+        buttonPanel.add(searchBtn);
+        
+        searchBtn.addActionListener(e ->{
+        	new UserSearchUI().setVisible(true);
+        });
         
         addBtn.addActionListener(e ->{
         	 UserFormUI form = new UserFormUI(this, userManager, null);
@@ -122,17 +154,6 @@ public class UserListUI extends JFrame {
         	    });
 
         	    form.setVisible(true);
-        });
-        
-        deleteBtn.addActionListener(e -> {
-            int row = table.getSelectedRow();
-            if(row == -1) return;
-            String id = (String) table.getValueAt(row, 0);
-            int confirm = JOptionPane.showConfirmDialog(this, "Delete User " + id + "?");
-            if(confirm == JOptionPane.YES_OPTION) {
-                userManager.deleteUser(id);
-                loadUsers();
-            }
         });
         
         editBtn.addActionListener(e ->{
@@ -161,6 +182,10 @@ public class UserListUI extends JFrame {
         	}
         });
         
+        backBtn.addActionListener(e ->{
+        	this.dispose();
+        });
+        
         loadUsers();
     }
         
@@ -182,10 +207,7 @@ public class UserListUI extends JFrame {
             }
     }
     
-    public static void main(String[] args) {
-        UserManager userManager = new UserManager();
-        javax.swing.SwingUtilities.invokeLater(() -> new UserListUI(userManager).setVisible(true));
-    }
+ 
 }
 
  

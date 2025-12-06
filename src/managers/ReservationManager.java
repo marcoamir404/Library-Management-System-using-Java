@@ -51,13 +51,18 @@ public class ReservationManager {
 		return true;
 	}
 	
-	
-	public boolean cancelReservation(String reservationId) {
-        boolean canceled = Reservation.reservations.removeIf(r -> r.getReservationId().equals(reservationId));
-        if(canceled) { rf.saveReservations(reservations);}
-        return canceled;
-	}
+	public List<Reservation> getReservationsByPatron(String patronId) {
+        List<Reservation> list = new ArrayList<>();
 
+        for (Reservation r : Reservation.reservations) {
+            if (r.getPatronId().equals(patronId)) {
+                list.add(r);
+            }
+        }
+
+        return list;
+    }
+	
 	public List<Reservation> getReservationsByBook(String bookId) {
         List<Reservation> list = new ArrayList<>();
 

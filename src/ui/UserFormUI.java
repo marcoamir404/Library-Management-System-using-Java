@@ -137,18 +137,18 @@ public class UserFormUI extends JFrame {
             JOptionPane.showMessageDialog(this, "User Updated!");
         } else {
             User newUser = null;
-        	String id = "1";
+        	String id = "";
             switch (type) {
                 case ADMIN: 
-                	id = "A" + (userManager.searchAdmin("admin").size()+1);
+                	id = generateUserId(UserType.ADMIN);
                 	newUser = new Admin(id, username, pass, name, email, phone);
                 	break;
                 case LIBRARIAN: 
-                	id = "L" + (userManager.searchLibrarian("lirarian").size()+1);
+                	id = generateUserId(UserType.LIBRARIAN);
                 	newUser = new Librarian(id, username, pass, name, email, phone); 
                 	break;
                 case PATRON: 
-                	id = "P" + (userManager.searchPatron("patron").size()+1);
+                	id = generateUserId(UserType.PATRON);
                 	newUser = new Patron(id, username, pass, name, email, phone); 
                 	break;
             }
@@ -158,9 +158,29 @@ public class UserFormUI extends JFrame {
             JOptionPane.showMessageDialog(this, "User Added!");
         }
 
-
         dispose();
         if (parent != null) parent.setVisible(true);
+    }
+    
+    private String generateUserId(UserType type) {
+        int max = 0;
+
+        for(User u : User.users){
+            if(u.getUserType() == type){
+                String id = u.getUserId().substring(1); 
+                try{
+                    int num = Integer.parseInt(id);
+                    if(num > max) max = num;
+                } catch(Exception ignore){}
+            }
+        }
+
+        switch(type){
+            case ADMIN: return "A" + (max + 1);
+            case LIBRARIAN: return "L" + (max + 1);
+            case PATRON: return "P" + (max + 1);
+        }
+        return null;
     }
 
 }
