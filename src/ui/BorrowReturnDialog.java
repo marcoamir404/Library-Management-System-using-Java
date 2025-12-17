@@ -15,8 +15,8 @@ public class BorrowReturnDialog extends JDialog {
     private final Color COLOR_PRIMARY = new Color(39, 174, 96); 
     private final Color COLOR_BG = new Color(245, 247, 250);
 
-    public BorrowReturnDialog(JFrame parent, String title) {
-    	super(parent, title,true);
+    public BorrowReturnDialog(Window parent, String title) {
+    	super(parent, title,ModalityType.APPLICATION_MODAL);
 
         setSize(400, 350);
         setLocationRelativeTo(parent);

@@ -125,13 +125,13 @@ public class LoginUI extends JFrame {
             JOptionPane.showMessageDialog(this, "Welcome back, " + user.getName() + "!");
 		
             if (user.getUserType() == UserType.ADMIN) {
-                new AdminDashBoardUI().setVisible(true);
+                new AdminDashBoardUI(user.getUserId()).setVisible(true);
             } 
             else if (user.getUserType() == UserType.LIBRARIAN) {
-               new LibrarianDashboardUI().setVisible(true);
+               new LibrarianDashboardUI(user.getUserId()).setVisible(true);
             } 
             else {
-                //new PatronDashboardUI((Patron) user).setVisible(true);
+                new PatronDashboard(userManager,user.getUserId()).setVisible(true);
             }
             
             this.dispose();

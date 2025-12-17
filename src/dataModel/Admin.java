@@ -30,7 +30,7 @@ public class Admin extends User {
 	public void deleteLibrarian(String librarianId) { userManager.deleteUser(librarianId);}
 	public void updateLibrarian(Librarian librarian) { userManager.updateUser(librarian);}
 	public List<User> searchLibrarian(String query) {
-		List<User> result = userManager.searchLibrarian(query);
+		List<User> result = userManager.searchUsers(query);
 		return result;
 	}
 	
@@ -38,7 +38,7 @@ public class Admin extends User {
 	public void deletePatron(String patronId) { userManager.deleteUser(patronId);}
 	public void updatePatron(Patron patron) { userManager.updateUser(patron);}
 	public List<User> searchPatron(String query) { 
-		List<User> result = userManager.searchPatron(query);
+		List<User> result = userManager.searchUsers(query);
 		return result;
 	}
 	

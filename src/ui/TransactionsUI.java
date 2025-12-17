@@ -57,7 +57,7 @@ public class TransactionsUI extends JDialog {
         
         for (Transaction t : history) {
             Book b = bookManager.searchBookById(t.getBookId());
-            Patron p = userManager.searchPatronById(t.getPatronId());
+            Patron p = (Patron)userManager.searchUserById(t.getPatronId());
             
             String bookTitle = (b != null) ? b.getTitle() : "Unknown Title";
             String patronName = (p != null) ? p.getName() : "Unknown Title";

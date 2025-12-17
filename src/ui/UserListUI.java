@@ -22,10 +22,12 @@ public class UserListUI extends JFrame {
     private JButton addBtn, editBtn, deleteBtn, backBtn;
     private UserManager userManager;
     private JButton searchBtn;
-
-    public UserListUI(UserManager userManager) {
+    private JFrame parent;
+    
+    public UserListUI(UserManager userManager, JFrame parent) {
         this.userManager = userManager;
-
+        this.parent = parent;
+        
         setTitle("User List");
         setSize(900, 500);
         setLocationRelativeTo(null);
@@ -97,7 +99,7 @@ public class UserListUI extends JFrame {
         backBtn.setPreferredSize(new Dimension(160, 40));
 
         buttonPanel.add(addBtn);
-        buttonPanel.add(editBtn);
+        if(this.parent instanceof AdminDashBoardUI){ buttonPanel.add(editBtn);} 
         buttonPanel.add(backBtn);
 
         getContentPane().add(buttonPanel, BorderLayout.SOUTH);
@@ -140,11 +142,11 @@ public class UserListUI extends JFrame {
         buttonPanel.add(searchBtn);
         
         searchBtn.addActionListener(e ->{
-        	new UserSearchUI().setVisible(true);
+        	new UserSearchUI(this.parent).setVisible(true);
         });
         
         addBtn.addActionListener(e ->{
-        	 UserFormUI form = new UserFormUI(this, userManager, null);
+        	 UserFormUI form = new UserFormUI(this, userManager, null, false);
 
         	    form.addWindowListener(new java.awt.event.WindowAdapter() {
         	        @Override
@@ -169,7 +171,7 @@ public class UserListUI extends JFrame {
         	}
 
         	if (target != null) {
-        		 UserFormUI form = new UserFormUI(this, userManager, target);
+        		 UserFormUI form = new UserFormUI(this, userManager, target, false);
 
         		    form.addWindowListener(new java.awt.event.WindowAdapter() {
         		        @Override

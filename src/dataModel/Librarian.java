@@ -40,7 +40,7 @@ public class Librarian extends User{
 	public void notifyPatron(String patronId, String message) { 
 		 if (patronId == null || patronId.isEmpty()) return;
 
-			Patron p = userManager.searchPatronById(patronId);
+			Patron p = (Patron)userManager.searchUserById(patronId);
 
 	        if (p == null) {
 	            System.out.println("Invalid patron ID.");

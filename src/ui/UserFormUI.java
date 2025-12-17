@@ -8,6 +8,8 @@ import enums.UserType;
 import managers.UserManager;
 
 import javax.swing.*;
+
+
 import java.awt.*;
 
 public class UserFormUI extends JFrame {
@@ -21,11 +23,13 @@ public class UserFormUI extends JFrame {
     private static User userToEdit;
     private static UserManager userManager;
     private JFrame parent;
+    private boolean myAcc;
 
-    public UserFormUI(JFrame parent, UserManager manager, User user) {
+    public UserFormUI(JFrame parent, UserManager manager, User user, boolean myAcc) {
         this.parent = parent;
         this.userManager = manager;
         this.userToEdit = user;
+        this.myAcc = myAcc;
         
         setTitle("User Form");
         setSize(400, 500);
@@ -33,7 +37,6 @@ public class UserFormUI extends JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new BorderLayout());
 
-        // ===== HEADER =====
         JLabel header = new JLabel("User Form", SwingConstants.CENTER);
         header.setFont(new Font("Segoe UI", Font.BOLD, 22));
         header.setOpaque(true);
@@ -42,7 +45,6 @@ public class UserFormUI extends JFrame {
         header.setPreferredSize(new Dimension(400, 60));
         getContentPane().add(header, BorderLayout.NORTH);
 
-        // ===== FORM =====
         JPanel form = new JPanel(new GridLayout(14, 1, 5, 5));
         form.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
 
@@ -73,7 +75,6 @@ public class UserFormUI extends JFrame {
 
         getContentPane().add(form, BorderLayout.CENTER);
 
-        // ===== BUTTONS =====
         JPanel btnPanel = new JPanel();
         JButton btnSave = new JButton("Save");
         JButton btnClose = new JButton("Close");
@@ -106,6 +107,10 @@ public class UserFormUI extends JFrame {
         txtPhone.setText(userToEdit.getPhone());
         typeBox.setSelectedItem(userToEdit.getUserType());
         typeBox.setEnabled(false);
+        if(!myAcc) {
+        	txtUsername.setEnabled(false);
+            txtPassword.setEnabled(false);
+        }
     }
 
     private void saveUser() {

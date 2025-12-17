@@ -7,6 +7,7 @@ import java.util.List;
 import dataModel.Book;
 import dataModel.Patron;
 import dataModel.Reservation;
+import dataModel.User;
 import enums.BookStatus;
 import filemanager.ReservationFileHandler;
 
@@ -30,7 +31,7 @@ public class ReservationManager {
 		Book targetBook = bookManager.searchBookById(bookId);
 		if(targetBook == null) return false;
 		
-		Patron targetPatron = userManager.searchPatronById(patronId);
+		Patron targetPatron = (Patron)userManager.searchUserById(patronId);
 		if(targetPatron == null) return false;
 		
 		for(Reservation r : Reservation.reservations) {
@@ -96,7 +97,7 @@ public class ReservationManager {
         }
         
         if (earliest != null) {
-            Patron targetPatron = userManager.searchPatronById(earliest.getPatronId());
+            Patron targetPatron = (Patron)userManager.searchUserById(earliest.getPatronId());
             notifyPatronIfBookCurrentAvailable(targetPatron, earliest);
             
             
@@ -110,4 +111,16 @@ public class ReservationManager {
         bookManager.searchBookById(r.getBookId()).setStatus(BookStatus.RESERVED);
         rf.saveReservations(reservations);
     }
+	
+	public List<String> getPatronMessages(String id){
+		List<String> messages = new ArrayList<>();
+		User p = userManager.searchUserById(id);
+		for(String m : this.messages) {
+			if(m.toLowerCase().contains(p.getName().toLowerCase())) {
+				messages.add(m);
+			}
+		}
+		return messages;
+		
+	}
 }

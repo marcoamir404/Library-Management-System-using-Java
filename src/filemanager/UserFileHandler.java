@@ -47,7 +47,7 @@ public class UserFileHandler {
 
         File file = new File(FILE_PATH);
         if (!file.exists()) {
-            return users; // No file yet → return empty list
+            return users;
         }
 
         try {
@@ -57,7 +57,7 @@ public class UserFileHandler {
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
 
-                if (parts.length < 7) continue; // Skip invalid lines
+                if (parts.length < 7) continue;
 
                 UserType type = UserType.valueOf(parts[0]);
                 String userId = parts[1];

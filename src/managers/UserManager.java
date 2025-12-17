@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dataModel.User;
-import dataModel.Librarian;
 import dataModel.Patron;
-import enums.UserType;
 import filemanager.UserFileHandler;
 
 public class UserManager {
@@ -71,91 +69,43 @@ public class UserManager {
         return false;
     }
     
-    public Librarian searchLibrarianById(String libId) {
-        Librarian result = null;
+    public User searchUserById(String Id) {
+        User result = null;
         
-        if (libId == null) {return null;}
+        if (Id == null) {return null;}
    
         for (User u : users) {
-            if (u.getUserId().equalsIgnoreCase(libId)&& u.getUserType() == UserType.LIBRARIAN) {
-                result = (Librarian) u;
+            if (u.getUserId().equalsIgnoreCase(Id)) {
+                result = u;
             }
         }
         return result;
     }
     
-    public Patron searchPatronById(String patId) {
-        Patron result = null;
-        
-        if (patId == null) {return null;}
-        
-        for (User u : users) {
-            if (u.getUserId().equalsIgnoreCase(patId) && u.getUserType() == UserType.PATRON) {
-                result = (Patron) u;
-            }
-        }
-        return result;
-    }
     
-    public List<User> searchAdmin(String query) {
+    public List<User> searchUsers(String query) {
         List<User> result = new ArrayList<>();
-        
-        if (query == null) {return null;}
-        
+        if (query == null || query.isBlank()) return result;
+
         query = query.toLowerCase();
+
         for (User u : users) {
-            if ((u.getUserId().toLowerCase().contains(query)||
-            	u.getName().toLowerCase().contains(query) ||
-                u.getUsername().toLowerCase().contains(query) ||
-                u.getEmail().toLowerCase().contains(query))&& u.getUserType() == UserType.ADMIN) {
+            boolean matchesText =
+                    u.getUserId().toLowerCase().contains(query) ||
+                    u.getName().toLowerCase().contains(query) ||
+                    u.getUsername().toLowerCase().contains(query) ||
+                    u.getEmail().toLowerCase().contains(query);
+
+            boolean matchesRole =
+                    u.getUserType().name().toLowerCase().contains(query);
+
+            if (matchesText || matchesRole) {
                 result.add(u);
-            }else if(u.getUserType() == UserType.ADMIN &&
-            		UserType.ADMIN.toString().contains(query.toUpperCase())) {
-            	result.add(u);
             }
         }
         return result;
     }
-    
-    public List<User> searchLibrarian(String query) {
-        List<User> result = new ArrayList<>();
-        
-        if (query == null) {return null;}
-        
-        query = query.toLowerCase();
-        for (User u : users) {
-            if ((u.getUserId().toLowerCase().contains(query)||
-            	u.getName().toLowerCase().contains(query) ||
-                u.getUsername().toLowerCase().contains(query) ||
-                u.getEmail().toLowerCase().contains(query))&& u.getUserType() == UserType.LIBRARIAN) {
-                result.add(u);
-            }else if(u.getUserType() == UserType.LIBRARIAN &&
-            		UserType.LIBRARIAN.toString().contains(query.toUpperCase())) {
-            	result.add(u);
-            }
-        }
-        return result;
-    }
-    
-    public List<User> searchPatron(String query) {
-        List<User> result = new ArrayList<>();
-        
-        if (query == null) {return null;}
-        
-        query = query.toLowerCase();
-        for (User u : users) {
-            if ((u.getUserId().toLowerCase().contains(query)||
-            	u.getName().toLowerCase().contains(query) ||
-                u.getUsername().toLowerCase().contains(query) ||
-                u.getEmail().toLowerCase().contains(query)) && u.getUserType() == UserType.PATRON) {
-                result.add(u);
-            }else if(u.getUserType() == UserType.PATRON &&
-            		UserType.PATRON.toString().contains(query.toUpperCase())) {
-            	result.add(u);
-            }
-        }
-        return result;
-    }
+
     
     public boolean usernameExists(String username) {
     	for(User u : users) {

@@ -6,13 +6,16 @@ import java.util.List;
 
 import dataModel.Book;
 import enums.BookStatus;
+import filemanager.BookFileHandler;
 import filemanager.TransactionFileHandler;
 import dataModel.Patron;
+import dataModel.Reservation;
 import dataModel.Transaction;
 
 public class TransactionManager {
 	
 	private TransactionFileHandler tf = new TransactionFileHandler();
+	private BookFileHandler bf = new BookFileHandler();
 	
     private List<Transaction> transactions = Transaction.transactions;
 
@@ -30,30 +33,54 @@ public class TransactionManager {
     }
 	}
 	
-	public boolean checkoutBook(String patronId, String bookId) { 
-		Book targetBook = bookManager.searchBookById(bookId);
-		if(targetBook == null) {return false;}
-		
-		if(targetBook.getStatus() != BookStatus.AVAILABLE) {return false;}
-		
-		Patron targetPatron = userManager.searchPatronById(patronId);
-		if(targetPatron == null) {return false;}
-		
-		
-		String transactionId = "T-"+ (transactions.size()+1);
-		LocalDate checkoutDate = LocalDate.now();
-		LocalDate dueDate = checkoutDate.plusDays(14);
-		
-		Transaction t = new Transaction(transactionId, patronId, bookId, checkoutDate, dueDate);
-		transactions.add(t);
-		
-		targetBook.setStatus(BookStatus.CHECKED_OUT);
-		targetPatron.addCurrentLoan(bookId);
-		targetPatron.addToHistory(bookId);
-		
-		tf.saveTransactions(transactions);
-		return true;
-	}
+    public boolean checkoutBook(String patronId, String bookId) {
+
+        Book targetBook = bookManager.searchBookById(bookId);
+        if (targetBook == null) return false;
+
+        if (targetBook.getStatus() == BookStatus.CHECKED_OUT) return false;
+
+        Patron targetPatron = (Patron) userManager.searchUserById(patronId);
+        if (targetPatron == null) return false;
+
+        // ===== RESERVATION CHECK =====
+        Reservation earliestReservation = null;
+
+        for (Reservation r : Reservation.reservations) {
+            if (r.getBookId().equalsIgnoreCase(bookId)) {
+                if (earliestReservation == null ||
+                    r.getReservationDate().isBefore(earliestReservation.getReservationDate())) {
+                    earliestReservation = r;
+                }
+            }
+        }
+
+        // If the book is reserved by someone else → deny checkout
+        if (earliestReservation != null &&
+            !earliestReservation.getPatronId().equalsIgnoreCase(patronId)) {
+            return false;
+        }
+
+        // ===== CREATE TRANSACTION =====
+        String transactionId = "T-" + (transactions.size() + 1);
+        LocalDate checkoutDate = LocalDate.now();
+        LocalDate dueDate = checkoutDate.plusDays(14);
+
+        Transaction t = new Transaction(transactionId, patronId, bookId, checkoutDate, dueDate);
+        transactions.add(t);
+
+        // ===== UPDATE STATES =====
+        targetBook.setStatus(BookStatus.CHECKED_OUT);
+        targetPatron.addCurrentLoan(bookId);
+        targetPatron.addToHistory(bookId);
+
+
+        bf.saveBooks(Book.books);
+        tf.saveTransactions(transactions);
+
+        return true;
+    }
+
 	
 	
 	public boolean returnBook(String patronId, String bookId) { 
@@ -73,12 +100,13 @@ public class TransactionManager {
 				
 		bookManager.searchBookById(bookId).setStatus(BookStatus.AVAILABLE);
 		
-		Patron patron = userManager.searchPatronById(patronId);
+		Patron patron = (Patron)userManager.searchUserById(patronId);
         if (patron != null) {
             patron.removeCurrentLoan(bookId);
         }
         
         reservationManager.notifyPatronIfAvailable(bookId);
+		bf.saveBooks(Book.books);
         tf.saveTransactions(transactions);
         
         return true;

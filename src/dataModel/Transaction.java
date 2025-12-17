@@ -38,8 +38,4 @@ public class Transaction {
 	public LocalDate getReturnDate() {return returnDate;}
 	public void setReturnDate(LocalDate returnDate) {this.returnDate = returnDate;}
 	
-	public boolean isOverdue() {
-		if(returnDate != null) {return returnDate.isAfter(dueDate); }
-		return LocalDate.now().isAfter(dueDate);
-	}
 }

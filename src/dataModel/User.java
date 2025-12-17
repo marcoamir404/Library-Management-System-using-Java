@@ -16,9 +16,9 @@ public abstract class User {
 	protected String phone;
 	
 	
-	public User() {}
+	protected User() {}
 	
-	public User(String userId, String username, String password, String name, String email, String phone, UserType userType) {
+	protected User(String userId, String username, String password, String name, String email, String phone, UserType userType) {
 		setUserId(userId);
 		setUsername(username);
 		setPassword(password);

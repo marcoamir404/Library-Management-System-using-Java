@@ -3,15 +3,11 @@ package ui;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import dataModel.Librarian;
-import dataModel.Patron;
 import managers.BookManager;
 import managers.ReservationManager;
 import managers.TransactionManager;
 import managers.UserManager;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class LibrarianDashboardUI extends JFrame {
 
@@ -23,13 +19,14 @@ public class LibrarianDashboardUI extends JFrame {
 	        new TransactionManager(userManager, bookManager, reservationManager);
 
 	private static final long serialVersionUID = 1L;
-
+	private String thisLibrarianId;
 	private final Color COLOR_PRIMARY = new Color(52, 73, 94); 
 
-    public LibrarianDashboardUI() {
+    public LibrarianDashboardUI(String Id) {
     	
     	UserManager userManager = new UserManager();
-
+    	this.thisLibrarianId = Id;
+    	
         setTitle("Librarian Workstation");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -121,20 +118,6 @@ public class LibrarianDashboardUI extends JFrame {
        gbc_btnRenewBook.gridy = 2;
        panel.add(btnRenewBook, gbc_btnRenewBook);
        
-       btnRenewBook.addActionListener(e ->{
-       	BorrowReturnDialog dialog = new BorrowReturnDialog(this, "Renew Book");
-           dialog.setVisible(true);
-
-           if(dialog.isSubmitted()) {
-               String patronId = dialog.getPatronId();
-               String bookId = dialog.getBookId();
-               if (transactionManager.renewBook(patronId, bookId)) {
-                   JOptionPane.showMessageDialog(this, "Book Renewed.");
-               } else {
-                   JOptionPane.showMessageDialog(this, "Renewing failed!", "Error", JOptionPane.ERROR_MESSAGE);
-               }
-           }
-        });
        
        
        JButton btnReserveBook = new JButton("Reserve Book");
@@ -172,13 +155,42 @@ public class LibrarianDashboardUI extends JFrame {
        gbc_btnViewReservatoins.gridy = 3;
        panel.add(btnViewReservatoins, gbc_btnViewReservatoins);
        
+       JButton editMyAcc = new JButton("Edit Your Account");
+       editMyAcc.setPreferredSize(new Dimension(300, 80));
+       editMyAcc.setForeground(Color.WHITE);
+       editMyAcc.setFont(new Font("Segoe UI", Font.BOLD, 18));
+       editMyAcc.setBackground(new Color(39, 174, 96));
+       GridBagConstraints gbc_editMyAcc = new GridBagConstraints();
+       gbc_editMyAcc.insets = new Insets(0, 0, 0, 5);
+       gbc_editMyAcc.gridx = 0;
+       gbc_editMyAcc.gridy = 4;
+       panel.add(editMyAcc, gbc_editMyAcc);
+       
+       
+       btnRenewBook.addActionListener(e ->{
+          	BorrowReturnDialog dialog = new BorrowReturnDialog(this, "Renew Book");
+              dialog.setVisible(true);
+
+              if(dialog.isSubmitted()) {
+                  String patronId = dialog.getPatronId();
+                  String bookId = dialog.getBookId();
+                  if (transactionManager.renewBook(patronId, bookId)) {
+                      JOptionPane.showMessageDialog(this, "Book Renewed.");
+                  } else {
+                      JOptionPane.showMessageDialog(this, "Renewing failed!", "Error", JOptionPane.ERROR_MESSAGE);
+                  }
+              }
+           });
+       
+       editMyAcc.addActionListener(e ->{
+    	   new UserFormUI(this, userManager, userManager.searchUserById(thisLibrarianId), true).setVisible(true);
+       });
+       
        btnViewReservatoins.addActionListener(e ->{
-       	new ReservationsUI(this, userManager.searchPatron("patron")).setVisible(true);
+       	new ReservationsUI(this, userManager.searchUsers("patron")).setVisible(true);
        });
        
        
-    
-
         btnCheckout.addActionListener(e -> {
         	BorrowReturnDialog dialog = new BorrowReturnDialog(this, "Checkout Book");
             dialog.setVisible(true);
@@ -216,7 +228,7 @@ public class LibrarianDashboardUI extends JFrame {
         });
         
         btnSearchUser.addActionListener(e ->{
-        	new UserSearchUI().setVisible(true);
+        	new UserSearchUI(this).setVisible(true);
         });
         
         btnReserveBook.addActionListener(e ->{
@@ -236,9 +248,10 @@ public class LibrarianDashboardUI extends JFrame {
         });
         
         btnViewTransactions.addActionListener(e ->{
-        	new TransactionsUI(this, userManager.searchPatron("patron")).setVisible(true);
+        	new TransactionsUI(this, userManager.searchUsers("patron")).setVisible(true);
         });
     }
+
 
 }
 

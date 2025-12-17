@@ -17,12 +17,14 @@ public class UserSearchUI extends JFrame {
     private JTable resultTable;
     private DefaultTableModel tableModel;
     private UserManager userManager;
+    private JFrame parent;
     
     private final Color PRIMARY_COLOR = new Color(44, 62, 80);
     private final Color SECONDARY_COLOR = new Color(52, 152, 219);
 
-    public UserSearchUI() {
+    public UserSearchUI(JFrame parent) {
     	this.userManager = new UserManager();
+    	this.parent = parent;
     	
         setTitle("User Search");
         setSize(950, 600);
@@ -140,8 +142,11 @@ public class UserSearchUI extends JFrame {
         
 
         buttonsPanel.add(viewButton);
-        buttonsPanel.add(editButton);
-        buttonsPanel.add(deleteButton);
+        if(this.parent instanceof AdminDashBoardUI) {
+        	buttonsPanel.add(editButton);
+        	buttonsPanel.add(deleteButton);
+        }
+       
         add(buttonsPanel, BorderLayout.SOUTH);
 
 
@@ -200,9 +205,7 @@ public class UserSearchUI extends JFrame {
     
     private void performSearch() {
         String query = searchField.getText().toLowerCase();
-        List<User> results = userManager.searchAdmin(query);
-        results.addAll(userManager.searchLibrarian(query));
-        results.addAll(userManager.searchPatron(query));
+        List<User> results = userManager.searchUsers(query);
         updateTable(results);
     }
     
@@ -248,7 +251,7 @@ public class UserSearchUI extends JFrame {
     	}
 
     	if (target != null) {
-    		 UserFormUI form = new UserFormUI(this, userManager, target);
+    		 UserFormUI form = new UserFormUI(this, userManager, target, false);
 
     		    form.addWindowListener(new java.awt.event.WindowAdapter() {
     		        @Override
@@ -262,11 +265,4 @@ public class UserSearchUI extends JFrame {
     	loadAllUsers();
     }
     
-    
-    
-
-
-    public static void main(String[] args) {
-        javax.swing.SwingUtilities.invokeLater(() -> new UserSearchUI().setVisible(true));
-    }
 }

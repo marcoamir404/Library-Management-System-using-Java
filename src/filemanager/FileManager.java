@@ -4,7 +4,6 @@ import java.io.*;
 
 public class FileManager {
 
-    // Write a full string into a file (overwrites the old file)
     public static void writeToFile(String filePath, String data) {
         try (PrintWriter pw = new PrintWriter(new FileWriter(filePath))) {
             pw.print(data);
@@ -13,12 +12,11 @@ public class FileManager {
         }
     }
 
-    // Read entire file into one string
     public static String readFromFile(String filePath) {
         StringBuilder sb = new StringBuilder();
         File file = new File(filePath);
 
-        if (!file.exists()) return ""; // return empty if missing
+        if (!file.exists()) return ""; 
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;

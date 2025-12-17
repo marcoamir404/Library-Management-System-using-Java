@@ -9,10 +9,11 @@ import java.awt.*;
 public class AdminDashBoardUI extends JFrame {
 	
 	private UserManager userManager;
-
-    public AdminDashBoardUI() {
+	private String thisAdminID;
+    public AdminDashBoardUI(String id) {
     	
     	this.userManager = new UserManager();
+    	this.thisAdminID = id;
     	
         setTitle("Admin Dashboard");
         setSize(900, 500);
@@ -67,20 +68,30 @@ public class AdminDashBoardUI extends JFrame {
         MansgeBooksBtn.setPreferredSize(new Dimension(200,60));
         MansgeBooksBtn.setFont(new Font("Segoe UI",Font.PLAIN,18));
         MansgeBooksBtn.setBackground(new Color(204,204,204));
-
+        
+        JButton editMyAcc = new JButton("Edit my account");
+        editMyAcc.setPreferredSize(new Dimension(200, 60));
+        editMyAcc.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+        editMyAcc.setBackground(new Color(204, 204, 204));
+        
+        center.add(editMyAcc);
         center.add(ManageUsersBtn);
         center.add(MansgeBooksBtn);
 
         getContentPane().add(center, BorderLayout.CENTER);
 
         ManageUsersBtn.addActionListener(e -> {
-        	new UserListUI(userManager).setVisible(true);
+        	new UserListUI(userManager, this).setVisible(true);
         });
 
         MansgeBooksBtn.addActionListener(e -> {
         	new BookManagementUI().setVisible(true);
         });
-
+        
+        editMyAcc.addActionListener(e -> {
+        	new UserFormUI(this, userManager, userManager.searchUserById(id), true).setVisible(true);
+        });
+        
         btnLogout.addActionListener(e -> {
             
              new LoginUI().setVisible(true);
@@ -88,7 +99,4 @@ public class AdminDashBoardUI extends JFrame {
         });
     }
 
-    public static void main(String[] args){
-        SwingUtilities.invokeLater(() -> new AdminDashBoardUI().setVisible(true));
-    }
 }
