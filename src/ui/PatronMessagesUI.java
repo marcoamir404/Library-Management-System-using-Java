@@ -10,7 +10,7 @@ public class PatronMessagesUI extends JDialog {
 
     private static final long serialVersionUID = 1L;
 
-    public PatronMessagesUI(Window parent, String patronId, ReservationManager reservationManager) {
+    public PatronMessagesUI(Window parent, String patronId,String bookName, boolean notified) {
         super(parent, "My Notifications", ModalityType.APPLICATION_MODAL);
 
         setSize(500, 400);
@@ -37,16 +37,12 @@ public class PatronMessagesUI extends JDialog {
         JScrollPane scrollPane = new JScrollPane(textArea);
         add(scrollPane, BorderLayout.CENTER);
 
-        List<String> messages = reservationManager.getPatronMessages(patronId);
 
-        if (messages.isEmpty()) {
+        if (!notified) {
             textArea.setText("No notifications yet.");
         } else {
-            StringBuilder sb = new StringBuilder();
-            for (String msg : messages) {
-                sb.append("• ").append(msg).append("\n\n");
-            }
-            textArea.setText(sb.toString());
+            String message = "Your reserved book "+bookName+ " is available now";
+            textArea.setText(message);
         }
 
         JButton btnClose = new JButton("Close");

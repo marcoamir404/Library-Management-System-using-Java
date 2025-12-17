@@ -1,6 +1,7 @@
 package filemanager;
 
 import java.io.*;
+import java.util.Scanner;
 
 public class FileManager {
 
@@ -16,12 +17,11 @@ public class FileManager {
         StringBuilder sb = new StringBuilder();
         File file = new File(filePath);
 
-        if (!file.exists()) return ""; 
+        if (!file.exists()) return "";
 
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                sb.append(line).append("\n");
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                sb.append(scanner.nextLine()).append("\n");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -29,6 +29,7 @@ public class FileManager {
 
         return sb.toString();
     }
+
 
     public static boolean fileExists(String filePath) {
         return new File(filePath).exists();

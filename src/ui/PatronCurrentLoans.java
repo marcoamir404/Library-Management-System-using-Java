@@ -128,12 +128,12 @@ public class PatronCurrentLoans extends JFrame {
                 String bookId = table.getValueAt(selectedRow, 0).toString();
                 
 				if (transactionManager.renewBook(patronId, bookId)) {
-					loadLoans();
                     JOptionPane.showMessageDialog(this, "Book Renewed.");
                 } else {
                     JOptionPane.showMessageDialog(this, "Renewing failed!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
+            loadLoans();
         });
 
         
@@ -142,6 +142,7 @@ public class PatronCurrentLoans extends JFrame {
     }
 	
 	private void loadLoans() {
+		model.setRowCount(0);
 		List<Transaction> currentLoans = transactionManager.getActiveLoans(patronId);
     	
    	 	for (Transaction t : currentLoans) {

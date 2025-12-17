@@ -21,41 +21,32 @@ public class UserFileHandler {
     private static final String FILE_PATH = "dataFiles/users.txt";
 
     public void saveUsers(List<User> users) {
-        try {
-            PrintWriter pw = new PrintWriter(new FileWriter(FILE_PATH));
+        StringBuilder sb = new StringBuilder();
 
-            for (User u : users) {
-                pw.println(
-                        u.getUserType() + "," + 
-                        u.getUserId() + "," +
-                        u.getUsername() + "," +
-                        u.getPassword() + "," +
-                        u.getName() + "," +
-                        u.getEmail() + "," +
-                        u.getPhone()
-                );
-            }
+		for (User u : users) {
+		       sb.append(u.getUserType()).append(",") 
+		       	.append(u.getUserId()).append(",") 
+		       	.append(u.getUsername()).append(",")
+		       	.append(u.getPassword()).append(",")
+		       	.append(u.getName()).append(",")
+		       	.append(u.getEmail()).append(",")
+		        .append(u.getPhone()).append("\n");
+		}
 
-            pw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+		FileManager.writeToFile(FILE_PATH, sb.toString());
     }
 
     public List<User> loadUsers() {
         List<User> users = new ArrayList<>();
+        String data = FileManager.readFromFile(FILE_PATH);
+        
+        if(data.isEmpty()) return users;
+        
+        String[] lines = data.split("\n");
 
-        File file = new File(FILE_PATH);
-        if (!file.exists()) {
-            return users;
-        }
 
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(FILE_PATH));
-            String line;
-
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split(",");
+            for(String user : lines) {
+                String[] parts = user.split(",");
 
                 if (parts.length < 7) continue;
 
@@ -95,12 +86,6 @@ public class UserFileHandler {
                 }
 
             }
-
-            br.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         return users;
     }

@@ -8,12 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import dataModel.Patron;
 import dataModel.Reservation;
-import dataModel.Transaction;
 import dataModel.User;
 import dataModel.Book;
 import managers.BookManager;
 import managers.ReservationManager;
-import managers.TransactionManager;
 import managers.UserManager;
 
 public class ReservationsUI extends JDialog {
@@ -65,19 +63,24 @@ public class ReservationsUI extends JDialog {
         btnViewMessages.setBackground(new Color(255, 128, 64));
         btnViewMessages.addActionListener(e -> {
         	if (parent instanceof PatronDashboard) {
+        		int row = table.getSelectedRow();
+        		if(row == -1) return;
+        		boolean notified = (boolean) table.getValueAt(row, 5);
+        		String bookName = (String) table.getValueAt(row, 3);
                 String patronId = ((PatronDashboard) parent).getPatronId();
-                new PatronMessagesUI(this, patronId, reservationManager).setVisible(true);
+                new PatronMessagesUI(this, patronId, bookName, notified).setVisible(true);
             }
         });
         
         JButton btnReserve = new JButton("Reserve Book");
         btnReserve.setBackground(new Color(255, 128, 64));
         btnReserve.addActionListener(e -> {
-        	BorrowReturnDialog dialog = new BorrowReturnDialog(this, "Reserve Book");
+        	String patronId = patrons.get(0).getUserId();
+        	BorrowReturnDialog dialog = new BorrowReturnDialog(this, "Reserve Book",patronId);
             dialog.setVisible(true);
+            
 
             if(dialog.isSubmitted()) {
-                String patronId = dialog.getPatronId();
                 String bookId = dialog.getBookId();
 
                 if (reservationManager.reserveBook(patronId, bookId)) {

@@ -24,7 +24,6 @@ public class PatronDashboard extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        // ===== HEADER =====
         JPanel header = new JPanel(new BorderLayout());
         header.setBackground(new Color(44, 62, 80));
         header.setPreferredSize(new Dimension(700, 60));
@@ -36,7 +35,6 @@ public class PatronDashboard extends JFrame {
         header.add(title, BorderLayout.CENTER);
         add(header, BorderLayout.NORTH);
 
-        // ===== CENTER PANEL =====
         JPanel center = new JPanel(new BorderLayout());
         center.setBackground(new Color(236, 240, 241));
 
@@ -47,7 +45,6 @@ public class PatronDashboard extends JFrame {
 
         center.add(welcome, BorderLayout.NORTH);
 
-        // ===== BUTTON GRID =====
         JPanel buttonsPanel = new JPanel(new GridLayout(3, 2, 30, 15));
         buttonsPanel.setBorder(BorderFactory.createEmptyBorder(10, 100, 50, 100));
         buttonsPanel.setBackground(new Color(236, 240, 241));
@@ -89,7 +86,7 @@ public class PatronDashboard extends JFrame {
         
         JButton btnLogOut = new JButton("Log Out");
         btnLogOut.setFont(new Font("Segoe UI", Font.BOLD, 15));
-        btnLogOut.setBackground(new Color(46, 134, 193));
+        btnLogOut.setBackground(new Color(231, 76, 60));
         btnLogOut.setForeground(Color.WHITE);
         btnLogOut.setFocusPainted(false);
         btnLogOut.setPreferredSize(new Dimension(200, 60));
@@ -105,7 +102,6 @@ public class PatronDashboard extends JFrame {
         center.add(buttonsPanel, BorderLayout.CENTER);
         add(center, BorderLayout.CENTER);
 
-        // ===== BUTTON LOGIC (UNCHANGED) =====
 
         btnSearchBooks.addActionListener(evt -> {
             try {

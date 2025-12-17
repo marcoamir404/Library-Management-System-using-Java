@@ -6,6 +6,8 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import dataModel.Patron;
+import dataModel.User;
+import enums.UserType;
 import managers.UserManager;
 
 public class PatronSignUpUI extends JFrame {
@@ -170,6 +172,16 @@ public class PatronSignUpUI extends JFrame {
             JOptionPane.showMessageDialog(this, "All fields are required!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        
+        if(!email.matches(".+@.+\\.com")) {
+        	 JOptionPane.showMessageDialog(this, "Incorrect Email Syntax!", "Error", JOptionPane.ERROR_MESSAGE);
+             return;
+        }
+        
+        if(!phone.matches("\\d{11,15}")) {
+       	 JOptionPane.showMessageDialog(this, "Incorrect Phone lenght!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+       }
 
        
         if (userManager.usernameExists(user)) {
@@ -178,7 +190,7 @@ public class PatronSignUpUI extends JFrame {
         }
 
         
-        String newId = "P" + (System.currentTimeMillis() % 100000);
+        String newId = generateUserId();
 
         
         Patron newPatron = new Patron(newId, user, pass, name, email, phone);
@@ -191,5 +203,21 @@ public class PatronSignUpUI extends JFrame {
         this.dispose();
         parentLoginFrame.setVisible(true);
     }
+    
+    private String generateUserId() {
+        int max = 0;
 
+        for(User u : User.users){
+            if(u.getUserType() == UserType.PATRON){
+                String id = u.getUserId().substring(1); 
+                try{
+                    int num = Integer.parseInt(id);
+                    if(num > max) max = num;
+                } catch(Exception ignore){}
+            }
+        }
+
+        return "P" + (max + 1);
+        
+    }
 }

@@ -168,7 +168,7 @@ public class LibrarianDashboardUI extends JFrame {
        
        
        btnRenewBook.addActionListener(e ->{
-          	BorrowReturnDialog dialog = new BorrowReturnDialog(this, "Renew Book");
+          	BorrowReturnDialog dialog = new BorrowReturnDialog(this, "Renew Book","");
               dialog.setVisible(true);
 
               if(dialog.isSubmitted()) {
@@ -192,7 +192,7 @@ public class LibrarianDashboardUI extends JFrame {
        
        
         btnCheckout.addActionListener(e -> {
-        	BorrowReturnDialog dialog = new BorrowReturnDialog(this, "Checkout Book");
+        	BorrowReturnDialog dialog = new BorrowReturnDialog(this, "Checkout Book","");
             dialog.setVisible(true);
 
             if(dialog.isSubmitted()) {
@@ -208,7 +208,7 @@ public class LibrarianDashboardUI extends JFrame {
         });
 
         btnReturn.addActionListener(e -> {
-        	BorrowReturnDialog dialog = new BorrowReturnDialog(this, "Return Book");
+        	BorrowReturnDialog dialog = new BorrowReturnDialog(this, "Return Book","");
             dialog.setVisible(true);
 
             if(dialog.isSubmitted()) {
@@ -232,7 +232,7 @@ public class LibrarianDashboardUI extends JFrame {
         });
         
         btnReserveBook.addActionListener(e ->{
-        	BorrowReturnDialog dialog = new BorrowReturnDialog(this, "Reserve Book");
+        	BorrowReturnDialog dialog = new BorrowReturnDialog(this, "Reserve Book","");
             dialog.setVisible(true);
 
             if(dialog.isSubmitted()) {

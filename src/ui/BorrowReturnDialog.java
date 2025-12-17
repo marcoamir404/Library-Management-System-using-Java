@@ -15,7 +15,7 @@ public class BorrowReturnDialog extends JDialog {
     private final Color COLOR_PRIMARY = new Color(39, 174, 96); 
     private final Color COLOR_BG = new Color(245, 247, 250);
 
-    public BorrowReturnDialog(Window parent, String title) {
+    public BorrowReturnDialog(Window parent, String title, String patronId) {
     	super(parent, title,ModalityType.APPLICATION_MODAL);
 
         setSize(400, 350);
@@ -43,6 +43,7 @@ public class BorrowReturnDialog extends JDialog {
         
         txtPatronId = new JTextField();
         txtPatronId.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        txtPatronId.setText(patronId);
         form.add(txtPatronId);
 
         JLabel bookId = new JLabel("Book ID:");
@@ -90,4 +91,5 @@ public class BorrowReturnDialog extends JDialog {
     public boolean isSubmitted() { return submitted; }
     public String getPatronId() { return txtPatronId.getText().trim(); }
     public String getBookId() { return txtBookId.getText().trim(); }
+    
 }

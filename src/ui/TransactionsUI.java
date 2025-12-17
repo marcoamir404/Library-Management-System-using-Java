@@ -40,7 +40,7 @@ public class TransactionsUI extends JDialog {
         add(title, BorderLayout.NORTH);
 
         // Table
-        String[] cols = {"Book ID", "Patron ID", "Patron Name", "Title", "Checkout Date", "Return Date"};
+        String[] cols = {"Book ID", "Patron ID", "Patron Name", "Title", "Checkout Date","Due Date", "Return Date"};
         DefaultTableModel model = new DefaultTableModel(cols, 0);
         JTable table = new JTable(model);
         table.setRowHeight(30);
@@ -71,6 +71,7 @@ public class TransactionsUI extends JDialog {
                 patronName,
                 bookTitle,
                 t.getCheckoutDate(),
+                t.getDueDate(),
                 returnDate
             });
         }

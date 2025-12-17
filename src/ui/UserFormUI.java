@@ -126,10 +126,20 @@ public class UserFormUI extends JFrame {
             return;
         }
         
-        if (userToEdit == null && userManager.usernameExists(username)) {
-            JOptionPane.showMessageDialog(this, "Username already taken!", "Error", JOptionPane.WARNING_MESSAGE);
+        if(!email.matches(".+@.+\\.com")) {
+       	 JOptionPane.showMessageDialog(this, "Incorrect Email Syntax!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+       
+       if(!phone.matches("\\d{11,15}")) {
+      	 JOptionPane.showMessageDialog(this, "Incorrect Phone lenght!", "Error", JOptionPane.ERROR_MESSAGE);
+           return;
+       }
+       
+       if (userToEdit == null && userManager.usernameExists(username)) {
+            JOptionPane.showMessageDialog(this, "Username already taken!", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
+       }
 
 
         if (userToEdit != null) {
