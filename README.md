@@ -51,6 +51,7 @@ The **Library Management System** is a software application designed to streamli
 ---
 
 ## 🗂️ Project Structure
+```bash
 LibraryMS/
 │── src/ # Source code
 │── jre/ # Java Runtime Environment
@@ -62,7 +63,7 @@ LibraryMS/
 │── LibraryMS.jar # Executable JAR file
 │── LibraryMS.exe # Windows executable
 │── README.md # Project documentation
-
+```
 
 ---
 
@@ -82,8 +83,9 @@ LibraryMS/
 ### Option 2: Run JAR File
 ```bash
 java -jar LibraryMS.jar
+```
 
 ### Option 3: Run from Source
-Open project in your IDE (e.g., Eclipse)
-Navigate to src/
-Run the main class
+- Open project in your IDE (e.g., Eclipse)
+- Navigate to src/
+- Run the main class
