@@ -1,10 +1,10 @@
 B1;Clean Code;Robert C. Martin;Programming;2008;A handbook of agile software craftsmanship.;AVAILABLE
 B2;Effective Java;Joshua Bloch;Programming;2018;Best practices for the Java platform.;AVAILABLE
-B3;Design Patterns;Erich Gamma;Software Engineering;1994;Classic patterns for reusable object-oriented design.;CHECKED_OUT
+B3;Design Patterns;Erich Gamma;Software Engineering;1994;Classic patterns for reusable object-oriented design.;AVAILABLE
 B4;Harry Potter and the Sorcerer's Stone;J.K. Rowling;Fantasy;1997;The first book in the Harry Potter series.;AVAILABLE
 B5;Lord of the Rings: Fellowship of the Ring;J.R.R. Tolkien;Fantasy;1954;Epic high-fantasy adventure in Middle-Earth.;AVAILABLE
 B6;The Alchemist;Paulo Coelho;Fiction;1988;A spiritual journey of a shepherd named Santiago.;AVAILABLE
-B7;To Kill a Mockingbird;Harper Lee;Fiction;1960;A novel about racial injustice in the Deep South.;CHECKED_OUT
+B7;To Kill a Mockingbird;Harper Lee;Fiction;1960;A novel about racial injustice in the Deep South.;AVAILABLE
 B8;Introduction to Algorithms;Thomas H. Cormen;Education;2009;Comprehensive textbook on algorithms.;AVAILABLE
 B9;Database System Concepts;Abraham Silberschatz;Education;2010;Fundamentals of database systems.;AVAILABLE
 B10;The Pragmatic Programmer;Andrew Hunt;Programming;1999;Guide to pragmatic thinking and craftsmanship.;AVAILABLE

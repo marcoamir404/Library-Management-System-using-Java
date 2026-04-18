@@ -106,7 +106,6 @@ public class UserFormUI extends JFrame {
         txtEmail.setText(userToEdit.getEmail());
         txtPhone.setText(userToEdit.getPhone());
         typeBox.setSelectedItem(userToEdit.getUserType());
-        typeBox.setEnabled(false);
         if(!myAcc) {
         	txtUsername.setEnabled(false);
             txtPassword.setEnabled(false);
